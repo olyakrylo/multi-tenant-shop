@@ -1,0 +1,19 @@
+.search {
+  grid-area: input;
+  width: 480px;
+  max-width: 100%;
+}
+
+.search__title {
+  color: var(--middlegray);
+}
+
+.search__field {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-bottom: 2px solid var(--middlegray);
+  outline: none;
+  color: var(--darkgray);
+  font-size: 22px;
+}

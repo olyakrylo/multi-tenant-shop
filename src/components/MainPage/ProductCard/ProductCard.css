@@ -1,0 +1,48 @@
+.card {
+  width: 100%;
+  border: 1px solid var(--lightgray);
+  display: grid;
+  grid-template-areas: "image" "name" "price";
+  grid-gap: 15px;
+  padding-bottom: 15px;
+  position: relative;
+  transition-duration: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.04);
+}
+
+.card__image {
+  grid-area: image;
+  width: 100%;
+}
+
+.card__name {
+  grid-area: name;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--middlegray);
+}
+
+.card__price {
+  grid-area: price;
+  text-align: center;
+  font-size: 17px;
+  color: var(--lightgray);
+}
+
+.card__availability {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 40px;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 40px;
+}
