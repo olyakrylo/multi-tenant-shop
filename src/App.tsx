@@ -5,7 +5,7 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import { config } from "./config";
 
 function App() {
-  const [authToken, setToken] = useState("a");
+  const [authToken, setToken] = useState("");
   const history = useHistory();
 
   function getHeaderButton() {

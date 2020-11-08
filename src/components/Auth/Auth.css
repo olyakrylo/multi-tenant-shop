@@ -17,6 +17,10 @@
   font-size: 17px;
 }
 
+.auth__input:focus {
+  border-bottom-color: var(--light);
+}
+
 .auth__buttons {
   grid-area: buttons;
   display: flex;

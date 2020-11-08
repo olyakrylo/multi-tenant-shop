@@ -17,11 +17,11 @@ export function Auth({ setToken }: AuthProps) {
 
   return (
     <form className="auth">
-      <input id="login" className="auth__input" placeholder="login" />
+      <input id="login" className="auth__input" placeholder="login" autoFocus={true} />
       <input id="password" type="password" className="auth__input" placeholder="password" />
 
       <div className="auth__buttons">
-        <button className="auth__button auth__button_solid" type="submit" onClick={onAuth}>
+        <button className="auth__button auth__button_solid" onClick={onAuth}>
           Auth
         </button>
         <button className="auth__button auth__button_transparent" onClick={() => history.push("/")}>
