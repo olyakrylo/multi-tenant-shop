@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   position: relative;
+  max-width: 90vw;
 }
 
 .admin__header-add {
@@ -23,6 +24,11 @@
   font-size: 18px;
   margin-right: 25px;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.admin__header-add:hover {
+  background-color: var(--main);
 }
 
 .admin__add {

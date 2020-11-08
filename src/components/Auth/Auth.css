@@ -1,0 +1,30 @@
+.auth {
+  display: grid;
+  grid-template-areas: "login" "password" "button";
+  grid-gap: 20px;
+  width: max-content;
+  margin: auto;
+  border: 1px solid var(--light);
+  padding: 15px;
+}
+
+.auth__input {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid var(--main);
+  color: var(--dark);
+  height: 20px;
+  font-size: 17px;
+}
+
+.auth__submit {
+  outline: none;
+  border: none;
+  width: max-content;
+  align-self: center;
+  background: var(--dark);
+  color: white;
+  font-size: 17px;
+  padding: 7px 15px;
+  cursor: pointer;
+}

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AdminProduct.css";
 import { Product } from "../../../data/productsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faEdit } from "@fortawesome/free-regular-svg-icons";
 
 export function AdminProduct({ item_id, name, price, picture, is_available }: Product) {
+  const [editMode, setEditMode] = useState(false);
+
   return (
-    <div className="product">
+    <div className={`product ${editMode && "product_edit"}`}>
       <img className="product__image" src={`./img/${picture}`} alt={""} />
 
       <div className="product__id">
@@ -20,7 +22,7 @@ export function AdminProduct({ item_id, name, price, picture, is_available }: Pr
       </div>
 
       <div className="product__control">
-        <button className="product__control-btn">
+        <button className="product__control-btn" onClick={() => setEditMode(!editMode)}>
           <FontAwesomeIcon icon={faEdit} />
         </button>
         <button className="product__control-btn product__control-btn_red">

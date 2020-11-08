@@ -4,8 +4,14 @@ import { Search } from "../MainPage/Search/Search";
 import { productsList } from "../../data/productsList";
 import { AdminProduct } from "./Product/AdminProduct";
 import { AddForm } from "./AddForm/AddForm";
+import { Auth } from "../Auth/Auth";
 
-export function Admin() {
+interface AdminProps {
+  token: string;
+  setToken: (token: string) => void;
+}
+
+export function Admin({ token, setToken }: AdminProps) {
   let [products, setProducts] = useState(productsList);
   let [addOpened, setAddOpened] = useState(false);
 
@@ -17,6 +23,10 @@ export function Admin() {
           item.name.toLowerCase().includes(croppedValue) || item.item_id.includes(croppedValue),
       ),
     );
+  }
+
+  if (!token) {
+    return <Auth setToken={setToken} />;
   }
 
   return (

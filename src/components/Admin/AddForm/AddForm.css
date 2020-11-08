@@ -1,4 +1,5 @@
 .add__form {
+  max-width: 100%;
   display: grid;
   grid-template-areas: "name image" "price image" "av image" "buttons image";
   grid-gap: 30px;
@@ -6,7 +7,7 @@
 
 @media (max-width: 500px) {
   .add__form {
-    grid-template-areas: "name" "price" "av" "buttons" "image";
+    grid-template-areas: "image" "name" "price" "av" "buttons";
   }
 }
 
@@ -33,6 +34,12 @@
   align-items: flex-end;
   position: relative;
   overflow: hidden;
+}
+
+@media (max-width: 500px) {
+  .form__image {
+    justify-self: flex-start;
+  }
 }
 
 .form__image-item {
@@ -80,8 +87,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 40px;
-  outline: 2px solid var(--main);
+  outline: 1px solid var(--light);
   cursor: pointer;
+  position: relative;
 }
 
 .form__option {
@@ -90,12 +98,23 @@
   line-height: 40px;
   font-size: 17px;
   height: 40px;
+  background-color: white;
 }
 
-.form__option_selected {
-  background-color: var(--main);
+.form__option_selected_green {
+  background-color: var(--green);
   color: white;
 }
+
+.form__option_selected_red {
+  background-color: var(--red);
+  color: white;
+}
+
+/*.form__option_selected {*/
+/*  background-color: var(--main);*/
+/*  color: white;*/
+/*}*/
 
 .form__buttons {
   grid-area: buttons;
@@ -111,6 +130,7 @@
   border-radius: 0;
   padding: 0 25px;
   margin-right: 25px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .form__btn_solid {
@@ -118,7 +138,25 @@
   color: #fff;
 }
 
+.form__btn_solid:hover {
+  background-color: var(--main);
+}
+
 .form__btn_transparent {
   border: 2px solid var(--dark);
   color: var(--dark);
+}
+
+.form__btn_transparent:hover {
+  color: white;
+  background-color: var(--main);
+  border: 2px solid var(--main);
+}
+
+@media (max-width: 500px) {
+  .form__name,
+  .form__price,
+  .form__available {
+    max-width: 90vw;
+  }
 }

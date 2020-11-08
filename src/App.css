@@ -9,12 +9,27 @@
   top: 0;
   z-index: 1000;
   font-family: Roboto, sans-serif;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .header__logo {
   color: white;
-  font-size: 30px;
-  margin-left: 40px;
+  font-size: 25px;
+}
+
+.header__logout {
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 15px;
+  padding: 7px 15px;
+  cursor: pointer;
+  background: none;
+}
+
+.header__logout:hover {
+  background: var(--light);
 }
 
 .content {
@@ -22,5 +37,5 @@
   margin: 140px auto 60px;
   min-width: 60vw;
   width: 740px;
-  max-width: 90%;
+  max-width: 90vw;
 }

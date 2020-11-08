@@ -36,13 +36,13 @@ export function AddForm({ setAddOpened }: AddFormProps) {
 
       <div className="form__available">
         <div
-          className={`form__option ${available ? "form__option_selected" : ""}`}
+          className={`form__option ${available && "form__option_selected_green"}`}
           onClick={() => setAvailable(true)}
         >
           Available
         </div>
         <div
-          className={`form__option ${!available ? "form__option_selected" : ""}`}
+          className={`form__option ${!available && "form__option_selected_red"}`}
           onClick={() => setAvailable(false)}
         >
           Not available

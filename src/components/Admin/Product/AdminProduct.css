@@ -10,6 +10,10 @@
   overflow: hidden;
 }
 
+.product_edit {
+  height: 250px;
+}
+
 .product__image {
   grid-area: image;
   height: 100px;
@@ -39,11 +43,11 @@
 }
 
 .product__status_available {
-  color: #4a8766;
+  color: var(--green);
 }
 
 .product__status_not-available {
-  color: #952727;
+  color: var(--red);
 }
 
 .product__control {
