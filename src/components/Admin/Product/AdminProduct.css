@@ -1,0 +1,75 @@
+.product {
+  height: 100px;
+  display: grid;
+  grid-template-areas:
+    "image name control"
+    "image price control";
+  grid-template-columns: 100px calc(100% - 240px) 100px;
+  grid-gap: 20px;
+  grid-row-gap: 15px;
+  overflow: hidden;
+}
+
+.product__image {
+  grid-area: image;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.product__id {
+  grid-area: name;
+  display: flex;
+  align-items: flex-end;
+  font-size: 20px;
+  color: var(--dark);
+}
+
+.product__name {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product__price {
+  grid-area: price;
+  font-size: 17px;
+  color: var(--main);
+}
+
+.product__status_available {
+  color: #4a8766;
+}
+
+.product__status_not-available {
+  color: #952727;
+}
+
+.product__control {
+  grid-area: control;
+  display: flex;
+  align-items: center;
+}
+
+.product__control-btn {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 23px;
+  line-height: 40px;
+  color: var(--main);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.product__control-btn_red {
+  color: #952727;
+}
+
+.product__control-btn:hover {
+  background-color: rgba(33, 33, 33, 0.1);
+}

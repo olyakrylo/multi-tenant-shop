@@ -1,10 +1,8 @@
 .main {
-  margin: 0 auto 60px;
-  width: 740px;
-  max-width: 90%;
+  width: 100%;
   display: grid;
   grid-template-areas:
-    "input count"
+    "search count"
     "results results";
   grid-template-columns: 2fr 1fr;
   grid-gap: 40px;
@@ -12,7 +10,7 @@
 
 @media (max-width: 700px) {
   .main {
-    grid-template-areas: "input" "count" "results";
+    grid-template-areas: "search" "count" "results";
     grid-template-columns: 1fr;
     grid-gap: 30px;
   }
@@ -28,15 +26,13 @@
 
 .results {
   grid-area: results;
-  /*width: 100%;*/
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -30px;
+  width: auto;
 }
-
-.results__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  /*width: 100%;*/
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 40px;
+.results__col {
+  padding-left: 30px;
+  background-clip: padding-box;
 }

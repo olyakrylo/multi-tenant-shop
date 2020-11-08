@@ -1,6 +1,7 @@
 .search {
-  grid-area: input;
-  width: 480px;
+  grid-area: search;
+  /*width: 480px;*/
+  width: 100%;
 }
 
 @media (max-width: 700px) {

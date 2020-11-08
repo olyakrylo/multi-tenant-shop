@@ -1,0 +1,124 @@
+.add__form {
+  display: grid;
+  grid-template-areas: "name image" "price image" "av image" "buttons image";
+  grid-gap: 30px;
+}
+
+@media (max-width: 500px) {
+  .add__form {
+    grid-template-areas: "name" "price" "av" "buttons" "image";
+  }
+}
+
+.form__name {
+  grid-area: name;
+}
+
+.form__price {
+  grid-area: price;
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  grid-gap: 20px;
+  width: 100%;
+}
+
+.form__image {
+  justify-self: flex-end;
+  grid-area: image;
+  width: 230px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  overflow: hidden;
+}
+
+.form__image-item {
+  object-fit: cover;
+}
+
+.form__image-input {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.form-field__title {
+  color: var(--main);
+}
+
+.form-field__input,
+.form__select {
+  border: none;
+  border-bottom: 2px solid var(--main);
+  outline: none;
+  color: var(--dark);
+  font-size: 20px;
+  box-sizing: border-box;
+  height: 30px;
+  background-color: transparent;
+}
+
+.form-field__input {
+  width: 100%;
+}
+
+.form__select {
+  width: 60px;
+  align-self: flex-end;
+}
+
+.form__available {
+  grid-area: av;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 40px;
+  outline: 2px solid var(--main);
+  cursor: pointer;
+}
+
+.form__option {
+  color: var(--main);
+  text-align: center;
+  line-height: 40px;
+  font-size: 17px;
+  height: 40px;
+}
+
+.form__option_selected {
+  background-color: var(--main);
+  color: white;
+}
+
+.form__buttons {
+  grid-area: buttons;
+}
+
+.form__btn {
+  height: 40px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 18px;
+  border-radius: 0;
+  padding: 0 25px;
+  margin-right: 25px;
+}
+
+.form__btn_solid {
+  background-color: var(--dark);
+  color: #fff;
+}
+
+.form__btn_transparent {
+  border: 2px solid var(--dark);
+  color: var(--dark);
+}

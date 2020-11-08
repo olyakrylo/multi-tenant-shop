@@ -18,6 +18,9 @@
 }
 
 .content {
-  margin-top: 140px;
   font-family: Roboto, sans-serif;
+  margin: 140px auto 60px;
+  min-width: 60vw;
+  width: 740px;
+  max-width: 90%;
 }
