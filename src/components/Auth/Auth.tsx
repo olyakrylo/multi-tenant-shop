@@ -1,11 +1,14 @@
 import React from "react";
 import "./Auth.css";
+import { useHistory } from "react-router-dom";
 
 interface AuthProps {
   setToken: (token: string) => void;
 }
 
 export function Auth({ setToken }: AuthProps) {
+  const history = useHistory();
+
   function onAuth(): void {
     // @ts-ignore
     const login = document.querySelector("#login").value;
@@ -16,9 +19,15 @@ export function Auth({ setToken }: AuthProps) {
     <form className="auth">
       <input id="login" className="auth__input" placeholder="login" />
       <input id="password" type="password" className="auth__input" placeholder="password" />
-      <button className="auth__submit" type="submit" onClick={onAuth}>
-        Auth
-      </button>
+
+      <div className="auth__buttons">
+        <button className="auth__button auth__button_solid" type="submit" onClick={onAuth}>
+          Auth
+        </button>
+        <button className="auth__button auth__button_transparent" onClick={() => history.push("/")}>
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }

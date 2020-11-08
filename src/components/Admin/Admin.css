@@ -21,7 +21,7 @@
   outline: none;
   background-color: var(--dark);
   color: #fff;
-  font-size: 18px;
+  font-size: 17px;
   margin-right: 25px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -33,6 +33,23 @@
 
 .admin__add {
   grid-area: add;
+  height: 0;
+  transition: height 0.3s;
+  overflow: hidden;
+}
+
+.admin__add_open {
+  height: 270px;
+}
+
+@media (max-width: 500px) {
+  .admin__add_open {
+    height: 530px;
+  }
+
+  .admin__header-add {
+    font-size: 15px;
+  }
 }
 
 .admin__list {

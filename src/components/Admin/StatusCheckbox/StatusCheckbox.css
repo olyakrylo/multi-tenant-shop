@@ -1,0 +1,27 @@
+.status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 35px;
+  outline: 1px solid var(--light);
+  cursor: pointer;
+  position: relative;
+}
+
+.status__option {
+  color: var(--main);
+  text-align: center;
+  line-height: 35px;
+  font-size: 15px;
+  height: 35px;
+  background-color: white;
+}
+
+.status__option_selected_green {
+  background-color: var(--green);
+  color: white;
+}
+
+.status__option_selected_red {
+  background-color: var(--red);
+  color: white;
+}

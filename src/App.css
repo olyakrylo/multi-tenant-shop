@@ -18,18 +18,18 @@
   font-size: 25px;
 }
 
-.header__logout {
+.header__admin-btn {
   border: none;
   outline: none;
-  color: white;
+  color: var(--main);
   font-size: 15px;
   padding: 7px 15px;
   cursor: pointer;
   background: none;
 }
 
-.header__logout:hover {
-  background: var(--light);
+.header__admin-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .content {

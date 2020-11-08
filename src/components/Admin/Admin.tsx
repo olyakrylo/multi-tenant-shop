@@ -17,12 +17,10 @@ export function Admin({ token, setToken }: AdminProps) {
 
   function onSearchInput(value: string): void {
     const croppedValue = value.trim().toLowerCase();
-    setProducts(
-      productsList.filter(
-        item =>
-          item.name.toLowerCase().includes(croppedValue) || item.item_id.includes(croppedValue),
-      ),
+    const foundProducts = productsList.filter(
+      item => item.name.toLowerCase().includes(croppedValue) || item.item_id.includes(croppedValue),
     );
+    setProducts(foundProducts);
   }
 
   if (!token) {
@@ -38,11 +36,9 @@ export function Admin({ token, setToken }: AdminProps) {
         <Search inputEmitter={onSearchInput} />
       </div>
 
-      {addOpened && (
-        <div className="admin__add">
-          <AddForm setAddOpened={setAddOpened} />
-        </div>
-      )}
+      <div className={`admin__add ${addOpened && "admin__add_open"}`}>
+        <AddForm setAddOpened={setAddOpened} />
+      </div>
 
       <ul className={`admin__list ${addOpened ? "admin__list_blocked" : ""}`}>
         {products.map((item, i) => (

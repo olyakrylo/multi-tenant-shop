@@ -3,6 +3,7 @@
   display: grid;
   grid-template-areas: "name image" "price image" "av image" "buttons image";
   grid-gap: 30px;
+  padding: 1px;
 }
 
 @media (max-width: 500px) {
@@ -28,10 +29,6 @@
   grid-area: image;
   width: 230px;
   height: 230px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
   position: relative;
   overflow: hidden;
 }
@@ -51,6 +48,8 @@
   position: absolute;
   bottom: 0;
   left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
 }
 
 .form-field {
@@ -58,6 +57,7 @@
 }
 
 .form-field__title {
+  font-size: 15px;
   color: var(--main);
 }
 
@@ -67,7 +67,7 @@
   border-bottom: 2px solid var(--main);
   outline: none;
   color: var(--dark);
-  font-size: 20px;
+  font-size: 18px;
   box-sizing: border-box;
   height: 30px;
   background-color: transparent;
@@ -111,11 +111,6 @@
   color: white;
 }
 
-/*.form__option_selected {*/
-/*  background-color: var(--main);*/
-/*  color: white;*/
-/*}*/
-
 .form__buttons {
   grid-area: buttons;
 }
@@ -126,7 +121,7 @@
   outline: none;
   cursor: pointer;
   background-color: transparent;
-  font-size: 18px;
+  font-size: 17px;
   border-radius: 0;
   padding: 0 25px;
   margin-right: 25px;
