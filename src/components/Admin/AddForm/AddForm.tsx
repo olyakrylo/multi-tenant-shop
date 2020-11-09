@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./AddForm.css";
 import { StatusCheckbox } from "../StatusCheckbox/StatusCheckbox";
+import { ImageInput } from "../../ImageInput/ImageInput";
 
 interface AddFormProps {
   setAddOpened: (val: boolean) => void;
@@ -9,11 +10,11 @@ interface AddFormProps {
 export function AddForm({ setAddOpened }: AddFormProps) {
   const [available, setAvailable] = useState(true);
 
-  function updateImage(event: any): void {
-    const image = window.URL.createObjectURL(event.nativeEvent.target.files[0]);
-    const imageElement = document.querySelector(".form__image-item") as HTMLImageElement;
-    imageElement!.src = image;
-  }
+  // function updateImage(event: any): void {
+  //   const image = window.URL.createObjectURL(event.nativeEvent.target.files[0]);
+  //   const imageElement = document.querySelector(".form__image-item") as HTMLImageElement;
+  //   imageElement!.src = image;
+  // }
 
   return (
     <form className="add__form">
@@ -45,8 +46,9 @@ export function AddForm({ setAddOpened }: AddFormProps) {
       </div>
 
       <div className="form__image">
-        <img className="form__image-item" alt="" style={{ width: 230, height: 230 }} />
-        <input type="file" className="form__image-input" onInput={updateImage} />
+        {/*<img className="form__image-item" alt="" style={{ width: 230, height: 230 }} />*/}
+        {/*<input type="file" className="form__image-input" onInput={updateImage} />*/}
+        <ImageInput />
       </div>
     </form>
   );

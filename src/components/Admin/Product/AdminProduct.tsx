@@ -5,6 +5,7 @@ import { Product } from "../../../data/productsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { StatusCheckbox } from "../StatusCheckbox/StatusCheckbox";
+import { ImageInput } from "../../ImageInput/ImageInput";
 
 interface Mode {
   editMode: boolean;
@@ -28,12 +29,6 @@ export function AdminProduct({ item_id, name, price, picture, is_available }: Pr
   const [editMode, setEditMode] = useState(false);
   const [available, setAvailable] = useState(is_available);
 
-  function updateImage(event: any): void {
-    const image = window.URL.createObjectURL(event.nativeEvent.target.files[0]);
-    const imageElement = document.querySelector(".edit__image-item") as HTMLImageElement;
-    imageElement!.src = image;
-  }
-
   function getNameElement() {
     return editMode ? (
       <input className="product__input product__name_edit" placeholder="Name" defaultValue={name} />
@@ -54,11 +49,18 @@ export function AdminProduct({ item_id, name, price, picture, is_available }: Pr
     );
   }
 
+  function getImageElement() {
+    return editMode ? (
+      <ImageInput initialSrc={`./img/${picture}`} />
+    ) : (
+      <img className="product__image-item" alt="" src={`./img/${picture}`} />
+    );
+  }
+
   return (
     <div className={`product ${editMode && "product_edit"}`}>
       <div className={`product__image ${editMode && "product__image_edit"}`}>
-        <img className="product__image-item" alt="" src={`./img/${picture}`} />
-        {editMode && <input type="file" className="product__image-input" onInput={updateImage} />}
+        {getImageElement()}
       </div>
 
       <div className={`product__id ${editMode && "product__id_edit"}`}>{item_id}</div>

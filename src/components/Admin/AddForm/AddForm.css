@@ -27,29 +27,14 @@
 .form__image {
   justify-self: flex-end;
   grid-area: image;
-  width: 230px;
-  height: 230px;
-  position: relative;
-  overflow: hidden;
+  width: 260px;
+  height: 260px;
 }
 
 @media (max-width: 500px) {
   .form__image {
     justify-self: flex-start;
   }
-}
-
-.form__image-item {
-  object-fit: cover;
-}
-
-.form__image-input {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
 }
 
 .form-field {

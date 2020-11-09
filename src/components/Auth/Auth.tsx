@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Auth.css";
 import { useHistory } from "react-router-dom";
 
@@ -8,16 +8,23 @@ interface AuthProps {
 
 export function Auth({ setToken }: AuthProps) {
   const history = useHistory();
+  const loginElement = useRef(null);
 
   function onAuth(): void {
     // @ts-ignore
-    const login = document.querySelector("#login").value;
+    const login = loginElement.current.value;
     setToken(login);
   }
 
   return (
     <form className="auth">
-      <input id="login" className="auth__input" placeholder="login" autoFocus={true} />
+      <input
+        ref={loginElement}
+        id="login"
+        className="auth__input"
+        placeholder="login"
+        autoFocus={true}
+      />
       <input id="password" type="password" className="auth__input" placeholder="password" />
 
       <div className="auth__buttons">
