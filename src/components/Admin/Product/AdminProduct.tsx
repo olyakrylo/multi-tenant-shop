@@ -54,29 +54,10 @@ export function AdminProduct({ item_id, name, price, picture, is_available }: Pr
     );
   }
 
-  // function getStatusEditElement() {
-  //   return (
-  //     <div className="product__status_edit">
-  //       <div
-  //         className={`product__option ${available && "product__option_selected_green"}`}
-  //         onClick={() => setAvailable(true)}
-  //       >
-  //         Available
-  //       </div>
-  //       <div
-  //         className={`product__option ${!available && "product__option_selected_red"}`}
-  //         onClick={() => setAvailable(false)}
-  //       >
-  //         Not available
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className={`product ${editMode && "product_edit"}`}>
       <div className={`product__image ${editMode && "product__image_edit"}`}>
-        <img className="product__image-item__image-item" alt="" src={`./img/${picture}`} />
+        <img className="product__image-item" alt="" src={`./img/${picture}`} />
         {editMode && <input type="file" className="product__image-input" onInput={updateImage} />}
       </div>
 
