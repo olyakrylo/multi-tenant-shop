@@ -1,3 +1,3 @@
 export const config = {
-  name: "Мир букетов",
+  name: "F&A",
 };

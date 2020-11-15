@@ -15,7 +15,7 @@ export function MainPage() {
   }
 
   const productsItems = products
-    .sort((a, b) => parseInt(a.price, 10) - parseInt(b.price, 10))
+    .sort((a, b) => a.price - b.price)
     .map(({ name, price, picture, is_available }: Product, i) => {
       return (
         <ProductCard key={i} name={name} price={price} img={picture} isAvailable={is_available} />

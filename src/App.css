@@ -18,7 +18,7 @@
   font-size: 25px;
 }
 
-.header__admin-btn {
+.header__btn {
   border: none;
   outline: none;
   color: var(--main);
@@ -28,7 +28,7 @@
   background: none;
 }
 
-.header__admin-btn:hover {
+.header__btn:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 

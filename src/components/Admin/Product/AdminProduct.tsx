@@ -42,7 +42,7 @@ export function AdminProduct({ item_id, name, price, picture, is_available }: Pr
       <input className="product__input product__price_edit" defaultValue={price} />
     ) : (
       <div className="product__price">
-        {price}&nbsp;&nbsp;&nbsp;
+        {price} ₽&nbsp;&nbsp;&nbsp;
         {is_available && <span className="product__status_available">Available</span>}
         {!is_available && <span className="product__status_not-available">Not available</span>}
       </div>

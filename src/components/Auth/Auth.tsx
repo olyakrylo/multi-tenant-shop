@@ -13,6 +13,9 @@ export function Auth({ setToken }: AuthProps) {
   function onAuth(): void {
     // @ts-ignore
     const login = loginElement.current.value;
+    if (!login) return;
+
+    document.cookie = `token=${login}`;
     setToken(login);
   }
 

@@ -10,12 +10,6 @@ interface AddFormProps {
 export function AddForm({ setAddOpened }: AddFormProps) {
   const [available, setAvailable] = useState(true);
 
-  // function updateImage(event: any): void {
-  //   const image = window.URL.createObjectURL(event.nativeEvent.target.files[0]);
-  //   const imageElement = document.querySelector(".form__image-item") as HTMLImageElement;
-  //   imageElement!.src = image;
-  // }
-
   return (
     <form className="add__form">
       <div className="form-field form__name">
@@ -23,17 +17,9 @@ export function AddForm({ setAddOpened }: AddFormProps) {
         <input className="form-field__input" />
       </div>
 
-      <div className="form__price">
-        <div className="form-field">
-          <span className="form-field__title">price</span>
-          <input className="form-field__input" />
-        </div>
-
-        <select className="form__select">
-          <option value="₽">₽</option>
-          <option value="$">$</option>
-          <option value="€">€</option>
-        </select>
+      <div className="form-field form__price">
+        <span className="form-field__title">price</span>
+        <input className="form-field__input" />
       </div>
 
       <StatusCheckbox available={available} setAvailable={setAvailable} />
@@ -46,8 +32,6 @@ export function AddForm({ setAddOpened }: AddFormProps) {
       </div>
 
       <div className="form__image">
-        {/*<img className="form__image-item" alt="" style={{ width: 230, height: 230 }} />*/}
-        {/*<input type="file" className="form__image-input" onInput={updateImage} />*/}
         <ImageInput />
       </div>
     </form>
