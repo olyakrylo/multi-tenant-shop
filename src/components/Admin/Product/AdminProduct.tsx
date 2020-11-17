@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AdminProduct.css";
 import "./Edit.css";
-import { Product } from "../../../data/productsList";
+import { ProductType } from "../../../data/shared";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { StatusCheckbox } from "../StatusCheckbox/StatusCheckbox";
@@ -25,7 +25,7 @@ function Control({ editMode, setEditMode }: Mode) {
   );
 }
 
-export function AdminProduct({ item_id, name, price, picture, is_available }: Product) {
+export function AdminProduct({ item_id, name, price, picture, is_available }: ProductType) {
   const [editMode, setEditMode] = useState(false);
   const [available, setAvailable] = useState(is_available);
 

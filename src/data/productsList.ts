@@ -1,12 +1,6 @@
-export type Product = {
-  item_id: string;
-  price: number;
-  is_available: boolean;
-  name: string;
-  picture: string;
-};
+import { ProductType } from "./shared";
 
-export const productsList: Product[] = [
+export const productsList: ProductType[] = [
   {
     item_id: "0001",
     price: 1000,

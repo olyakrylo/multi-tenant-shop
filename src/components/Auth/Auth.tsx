@@ -1,13 +1,12 @@
 import React, { useRef } from "react";
 import "./Auth.css";
-import { useHistory } from "react-router-dom";
 
 interface AuthProps {
   setToken: (token: string) => void;
+  goToPath: (path: string) => void;
 }
 
-export function Auth({ setToken }: AuthProps) {
-  const history = useHistory();
+export function Auth({ setToken, goToPath }: AuthProps) {
   const loginElement = useRef(null);
 
   function onAuth(): void {
@@ -34,7 +33,7 @@ export function Auth({ setToken }: AuthProps) {
         <button className="auth__button auth__button_solid" onClick={onAuth}>
           Auth
         </button>
-        <button className="auth__button auth__button_transparent" onClick={() => history.push("/")}>
+        <button className="auth__button auth__button_transparent" onClick={() => goToPath("/")}>
           Cancel
         </button>
       </div>

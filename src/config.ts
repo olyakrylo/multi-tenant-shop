@@ -1,3 +1,3 @@
 export const config = {
-  name: "F&A",
+  name: "AF",
 };

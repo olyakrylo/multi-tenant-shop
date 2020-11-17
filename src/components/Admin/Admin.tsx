@@ -9,9 +9,10 @@ import { Auth } from "../Auth/Auth";
 interface AdminProps {
   token: string;
   setToken: (token: string) => void;
+  goToPath: (path: string) => void;
 }
 
-export function Admin({ token, setToken }: AdminProps) {
+export function Admin({ token, setToken, goToPath }: AdminProps) {
   let [products, setProducts] = useState(productsList);
   let [addOpened, setAddOpened] = useState(false);
 
@@ -24,7 +25,7 @@ export function Admin({ token, setToken }: AdminProps) {
   }
 
   if (!token) {
-    return <Auth setToken={setToken} />;
+    return <Auth setToken={setToken} goToPath={goToPath} />;
   }
 
   return (

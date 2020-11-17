@@ -4,9 +4,16 @@ import "./MainPage.css";
 import { Search } from "./Search/Search";
 import { ProductCard } from "./ProductCard/ProductCard";
 import { productsList } from "../../data/productsList";
-import { Product } from "../../data/productsList";
+import { ProductType, CartType } from "../../data/shared";
 
-export function MainPage() {
+interface MainPageProps {
+  cart: CartType;
+  setCart: React.Dispatch<React.SetStateAction<CartType>>;
+  cartCount: number;
+  setCartCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export function MainPage({ cart, setCart, cartCount, setCartCount }: MainPageProps) {
   let [products, setProducts] = useState(productsList);
 
   function onSearchInput(value: string): void {
@@ -14,11 +21,26 @@ export function MainPage() {
     setProducts(productsList.filter(item => item.name.toLowerCase().includes(croppedValue)));
   }
 
+  function addToCart(id: string): void {
+    cart[id] = cart[id] ? cart[id] + 1 : 1;
+    document.cookie = `cart=${JSON.stringify(cart)}`;
+    setCart(cart);
+    setCartCount(++cartCount);
+  }
+
   const productsItems = products
     .sort((a, b) => a.price - b.price)
-    .map(({ name, price, picture, is_available }: Product, i) => {
+    .map(({ name, price, picture, is_available, item_id }: ProductType, i) => {
       return (
-        <ProductCard key={i} name={name} price={price} img={picture} isAvailable={is_available} />
+        <ProductCard
+          key={i}
+          item_id={item_id}
+          name={name}
+          price={price}
+          picture={picture}
+          is_available={is_available}
+          addToCart={addToCart}
+        />
       );
     });
 

@@ -1,0 +1,51 @@
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: var(--main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  font-family: Roboto, sans-serif;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.header__name {
+  font-family: "Outsiders";
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  font-size: 40px;
+}
+
+.header__cart {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+}
+
+.header__name:hover, .header__cart:hover {
+  color: var(--light);
+}
+
+.header__btn {
+  border: none;
+  outline: none;
+  color: var(--main);
+  font-size: 15px;
+  padding: 7px 15px;
+  cursor: pointer;
+  background: none;
+}
+
+.header__btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
