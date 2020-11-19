@@ -1,9 +1,9 @@
 export type ProductType = {
-  item_id: string;
+  id: string;
   price: number;
   is_available: boolean;
-  name: string;
-  picture: string;
+  item_name: string;
+  picture?: string;
 };
 
 export type CartType = {

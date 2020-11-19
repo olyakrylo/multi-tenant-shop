@@ -27,7 +27,7 @@ export function Cart({ cart, products, setCart, cartCount, setCartCount }: CartP
     setCartCount(add ? ++cartCount : --cartCount);
   }
 
-  const cartProducts = products.filter(item => Object.keys(cart).includes(item.item_id));
+  const cartProducts = products.filter(item => Object.keys(cart).includes(item.id));
 
   return (
     <div className="cart">
@@ -40,10 +40,10 @@ export function Cart({ cart, products, setCart, cartCount, setCartCount }: CartP
         {cartProducts.map((item, i) => (
           <li className="cart__item" key={i}>
             <CartProduct
-              item_id={item.item_id}
-              name={item.name}
+              id={item.id}
+              item_name={item.item_name}
               picture={item.picture}
-              amount={cart[item.item_id]}
+              amount={cart[item.id]}
               price={item.price}
               is_available={item.is_available}
               changeCart={changeCart}
@@ -55,9 +55,9 @@ export function Cart({ cart, products, setCart, cartCount, setCartCount }: CartP
       <p className="cart__sum">
         <span className="cart__sum_light">Summary: </span>
         {cartProducts.reduce((prev, curr) => {
-          const currProduct = products.find(item => item.item_id === curr.item_id);
+          const currProduct = products.find(item => item.id === curr.id);
           if (!currProduct) return prev;
-          return prev + currProduct.price * cart[curr.item_id];
+          return prev + currProduct.price * cart[curr.id];
         }, 0)}{" "}
         ₽
       </p>

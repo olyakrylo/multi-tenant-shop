@@ -10,9 +10,9 @@ interface CartProductProps extends ProductType {
 }
 
 export function CartProduct({
-  name,
+  item_name,
   price,
-  item_id,
+  id,
   picture,
   amount,
   changeCart,
@@ -20,19 +20,19 @@ export function CartProduct({
   return (
     <div className="cart-product">
       <img className="cart-product__img" alt="" src={`./img/${picture}`} />
-      <div className="cart-product__name">{name}</div>
+      <div className="cart-product__name">{item_name}</div>
       <div className="cart-product__price">{price} ₽</div>
       <div className="cart-product__control">
         <button
           className="cart-product__btn cart-product__btn_red"
-          onClick={() => changeCart(item_id, false)}
+          onClick={() => changeCart(id, false)}
         >
           <FontAwesomeIcon icon={faMinusSquare} />
         </button>
         <div className="cart-product__amount">{amount}</div>
         <button
           className="cart-product__btn cart-product__btn_green"
-          onClick={() => changeCart(item_id, true)}
+          onClick={() => changeCart(id, true)}
         >
           <FontAwesomeIcon icon={faPlusSquare} />
         </button>

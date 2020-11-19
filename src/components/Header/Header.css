@@ -32,7 +32,8 @@
   font-size: 20px;
 }
 
-.header__name:hover, .header__cart:hover {
+.header__name:hover,
+.header__cart:hover {
   color: var(--light);
 }
 
@@ -43,7 +44,11 @@
   font-size: 15px;
   padding: 7px 15px;
   cursor: pointer;
-  background: none;
+  background: var(--light);
+}
+
+.header__btn_hidden {
+  visibility: hidden;
 }
 
 .header__btn:hover {

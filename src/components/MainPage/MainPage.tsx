@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Masonry from "react-masonry-css";
 import "./MainPage.css";
 import { Search } from "./Search/Search";
 import { ProductCard } from "./ProductCard/ProductCard";
 import { productsList } from "../../data/productsList";
 import { ProductType, CartType } from "../../data/shared";
+import { loadProducts } from "../../middleware";
 
 interface MainPageProps {
   cart: CartType;
@@ -14,11 +15,20 @@ interface MainPageProps {
 }
 
 export function MainPage({ cart, setCart, cartCount, setCartCount }: MainPageProps) {
-  let [products, setProducts] = useState(productsList);
+  let [products, setProducts] = useState([] as ProductType[]);
+  let [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (loaded) return;
+    loadProducts().then(data => {
+      setLoaded(true);
+      setProducts(data);
+    });
+  });
 
   function onSearchInput(value: string): void {
     const croppedValue = value.trim().toLowerCase();
-    setProducts(productsList.filter(item => item.name.toLowerCase().includes(croppedValue)));
+    setProducts(productsList.filter(item => item.item_name.toLowerCase().includes(croppedValue)));
   }
 
   function addToCart(id: string): void {
@@ -30,12 +40,12 @@ export function MainPage({ cart, setCart, cartCount, setCartCount }: MainPagePro
 
   const productsItems = products
     .sort((a, b) => a.price - b.price)
-    .map(({ name, price, picture, is_available, item_id }: ProductType, i) => {
+    .map(({ item_name, price, picture, is_available, id }: ProductType, i) => {
       return (
         <ProductCard
           key={i}
-          item_id={item_id}
-          name={name}
+          id={id}
+          item_name={item_name}
           price={price}
           picture={picture}
           is_available={is_available}

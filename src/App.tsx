@@ -1,23 +1,16 @@
 import React, { useState } from "react";
 import "./App.css";
 import { Admin, MainPage, Cart, Header } from "./components";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { CartType } from "./data/shared";
 import { productsList } from "./data/productsList";
 
 function App() {
   const [authToken, setToken] = useState(getToken());
-  const history = useHistory();
-  const [pathname, setPathname] = useState(history.location.pathname);
 
   const { count, cartData } = getCart();
   const [cart, setCart] = useState(cartData);
   const [cartCount, setCartCount] = useState(count);
-
-  function goToPath(path: string) {
-    setPathname(path);
-    history.push(path);
-  }
 
   function getToken() {
     const tokenExpr = document.cookie.match(/token=[a-zA-Z0-9]+;?/);
@@ -44,14 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header
-        pathname={pathname}
-        setPathname={setPathname}
-        authToken={authToken}
-        setToken={setToken}
-        cartCount={cartCount}
-        goToPath={goToPath}
-      />
+      <Header authToken={authToken} setToken={setToken} cartCount={cartCount} />
 
       <div className="content">
         <Switch>
@@ -70,7 +56,7 @@ function App() {
           <Route
             exact
             path="/admin"
-            render={() => <Admin token={authToken} setToken={setToken} goToPath={goToPath} />}
+            render={() => <Admin token={authToken} setToken={setToken} />}
           />
           <Route
             exact

@@ -21,6 +21,7 @@
 .card__image {
   grid-area: image;
   width: 100%;
+  min-height: 40px;
 }
 
 .card__name {
@@ -61,8 +62,6 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,6 +70,13 @@
 
 .card__cart {
   cursor: pointer;
+  color: white;
+  font-size: 30px;
+  transition: font-size 0.2s ease-in-out;
+}
+
+.card__cart:hover {
+  font-size: 35px;
 }
 
 .card:hover .card__add {

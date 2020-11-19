@@ -25,15 +25,19 @@ function Control({ editMode, setEditMode }: Mode) {
   );
 }
 
-export function AdminProduct({ item_id, name, price, picture, is_available }: ProductType) {
+export function AdminProduct({ id, item_name, price, picture, is_available }: ProductType) {
   const [editMode, setEditMode] = useState(false);
   const [available, setAvailable] = useState(is_available);
 
   function getNameElement() {
     return editMode ? (
-      <input className="product__input product__name_edit" placeholder="Name" defaultValue={name} />
+      <input
+        className="product__input product__name_edit"
+        placeholder="Name"
+        defaultValue={item_name}
+      />
     ) : (
-      <div className="product__name">{name}</div>
+      <div className="product__name">{item_name}</div>
     );
   }
 
@@ -63,7 +67,7 @@ export function AdminProduct({ item_id, name, price, picture, is_available }: Pr
         {getImageElement()}
       </div>
 
-      <div className={`product__id ${editMode && "product__id_edit"}`}>{item_id}</div>
+      <div className={`product__id ${editMode && "product__id_edit"}`}>{id}</div>
 
       {getNameElement()}
 

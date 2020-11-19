@@ -9,9 +9,9 @@ interface ProductCardProps extends ProductType {
 }
 
 export function ProductCard({
-  name,
+  item_name,
   price,
-  item_id,
+  id,
   picture,
   is_available,
   addToCart,
@@ -20,7 +20,7 @@ export function ProductCard({
     <div className="card">
       <div className="card__content">
         <img src={`./img/${picture}`} className="card__image" alt="" />
-        <div className="card__name">{name}</div>
+        <div className="card__name">{item_name}</div>
         <div className="card__price">{price} ₽</div>
 
         {!is_available && <div className="card__availability"> Нет в наличии </div>}
@@ -28,11 +28,7 @@ export function ProductCard({
 
       {is_available && (
         <div className="card__add">
-          <FontAwesomeIcon
-            onClick={() => addToCart(item_id)}
-            className="card__cart"
-            icon={faCartPlus}
-          />
+          <FontAwesomeIcon onClick={() => addToCart(id)} className="card__cart" icon={faCartPlus} />
         </div>
       )}
     </div>

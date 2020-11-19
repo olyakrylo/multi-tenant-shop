@@ -9,23 +9,22 @@ import { Auth } from "../Auth/Auth";
 interface AdminProps {
   token: string;
   setToken: (token: string) => void;
-  goToPath: (path: string) => void;
 }
 
-export function Admin({ token, setToken, goToPath }: AdminProps) {
+export function Admin({ token, setToken }: AdminProps) {
   let [products, setProducts] = useState(productsList);
   let [addOpened, setAddOpened] = useState(false);
 
   function onSearchInput(value: string): void {
     const croppedValue = value.trim().toLowerCase();
     const foundProducts = productsList.filter(
-      item => item.name.toLowerCase().includes(croppedValue) || item.item_id.includes(croppedValue),
+      item => item.item_name.toLowerCase().includes(croppedValue) || item.id.includes(croppedValue),
     );
     setProducts(foundProducts);
   }
 
   if (!token) {
-    return <Auth setToken={setToken} goToPath={goToPath} />;
+    return <Auth setToken={setToken} />;
   }
 
   return (
@@ -45,10 +44,10 @@ export function Admin({ token, setToken, goToPath }: AdminProps) {
         {products.map((item, i) => (
           <li className="admin__product" key={i}>
             <AdminProduct
-              item_id={item.item_id}
+              id={item.id}
               price={item.price}
               is_available={item.is_available}
-              name={item.name}
+              item_name={item.item_name}
               picture={item.picture}
             />
           </li>
