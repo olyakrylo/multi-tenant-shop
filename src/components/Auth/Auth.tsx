@@ -1,34 +1,43 @@
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import "./Auth.css";
+import { login } from "../../middleware";
+import { ProductWithId } from "../../data/shared";
 
 interface AuthProps {
   setToken: (token: string) => void;
 }
 
 export function Auth({ setToken }: AuthProps) {
-  const loginElement = useRef(null);
+  const loginInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
+  const passwordInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const history = useHistory();
 
-  function onAuth(): void {
-    // @ts-ignore
-    const login = loginElement.current.value;
+  async function onAuth(): Promise<void> {
+    const username = loginInput!.current!.value;
+    const password = passwordInput!.current!.value;
     if (!login) return;
 
-    document.cookie = `token=${login}`;
-    setToken(login);
+    const token = await login(username, password);
+
+    if (!token) {
+      prompt("Ты уебан?");
+      return;
+    }
+    document.cookie = `token=${token}`;
+    setToken(token);
   }
 
   return (
-    <form className="auth">
+    <div className="auth">
       <input
-        ref={loginElement}
+        ref={loginInput}
         id="login"
         className="auth__input"
         placeholder="login"
         autoFocus={true}
       />
-      <input id="password" type="password" className="auth__input" placeholder="password" />
+      <input ref={passwordInput} id="password" type="password" className="auth__input" placeholder="password" />
 
       <div className="auth__buttons">
         <button className="auth__button auth__button_solid" onClick={onAuth}>
@@ -38,6 +47,6 @@ export function Auth({ setToken }: AuthProps) {
           Cancel
         </button>
       </div>
-    </form>
+    </div>
   );
 }

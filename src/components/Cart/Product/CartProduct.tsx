@@ -1,10 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusSquare, faPlusSquare } from "@fortawesome/free-regular-svg-icons";
-import { ProductType } from "../../../data/shared";
+import { ProductWithId } from "../../../data/shared";
 import "./CartProduct.css";
 
-interface CartProductProps extends ProductType {
+interface CartProductProps extends ProductWithId {
   amount: number;
   changeCart: (id: number, add: boolean) => void;
 }

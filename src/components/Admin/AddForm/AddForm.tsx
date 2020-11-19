@@ -2,26 +2,35 @@ import React, { useRef, useState } from "react";
 import "./AddForm.css";
 import { StatusCheckbox } from "../StatusCheckbox/StatusCheckbox";
 import { ImageInput } from "../../ImageInput/ImageInput";
+import { add } from "../../../middleware";
+import { ProductWithId } from "../../../data/shared";
 
 interface AddFormProps {
   setAddOpened: (val: boolean) => void;
+  products: ProductWithId[];
+  setProducts: (product: ProductWithId[]) => void;
 }
 
-export function AddForm({ setAddOpened }: AddFormProps) {
+export function AddForm({ setAddOpened, products, setProducts }: AddFormProps) {
   const [available, setAvailable] = useState(true);
   const [image, setImage] = useState("");
   const nameInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const priceInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
 
-  function add(): void {
+  async function addProduct(): Promise<void> {
     const body = {
       item_name: nameInput!.current!.value,
       price: parseInt(priceInput!.current!.value),
       is_available: available,
-      picture: image.slice(0, 20),
+      picture: image,
     };
 
-    console.log(body);
+    const newProduct = await add(body);
+
+    if (!newProduct) return;
+
+    setProducts([...products, newProduct]);
+    setAddOpened(false);
   }
 
   return (
@@ -39,7 +48,7 @@ export function AddForm({ setAddOpened }: AddFormProps) {
       <StatusCheckbox available={available} setAvailable={setAvailable} />
 
       <div className="form__buttons">
-        <button className="form__btn form__btn_solid" onClick={add}>
+        <button className="form__btn form__btn_solid" onClick={addProduct}>
           Add
         </button>
         <button className="form__btn form__btn_transparent" onClick={() => setAddOpened(false)}>

@@ -1,6 +1,6 @@
-import { ProductType } from "./shared";
+import { ProductWithId } from "./shared";
 
-export const productsList: ProductType[] = [
+export const productsList: ProductWithId[] = [
   {
     id: 1,
     price: 1000,

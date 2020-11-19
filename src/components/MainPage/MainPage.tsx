@@ -3,15 +3,15 @@ import Masonry from "react-masonry-css";
 import "./MainPage.css";
 import { Search } from "./Search/Search";
 import { ProductCard } from "./ProductCard/ProductCard";
-import { ProductType, CartType } from "../../data/shared";
+import { ProductWithId, CartType } from "../../data/shared";
 
 interface MainPageProps {
   cart: CartType;
   setCart: React.Dispatch<React.SetStateAction<CartType>>;
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
-  products: ProductType[];
-  setProducts: (list: ProductType[]) => void;
+  products: ProductWithId[];
+  setProducts: (list: ProductWithId[]) => void;
 }
 
 export function MainPage({
@@ -37,7 +37,7 @@ export function MainPage({
 
   const productsItems = products
     .sort((a, b) => a.price - b.price)
-    .map(({ item_name, price, picture, is_available, id }: ProductType, i) => {
+    .map(({ item_name, price, picture, is_available, id }: ProductWithId, i) => {
       return (
         <ProductCard
           key={i}

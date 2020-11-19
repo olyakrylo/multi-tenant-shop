@@ -1,13 +1,13 @@
 import React from "react";
 import "./Cart.css";
-import { CartType, ProductType } from "../../data/shared";
+import { CartType, ProductWithId } from "../../data/shared";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { CartProduct } from "./Product/CartProduct";
 
 interface CartProps {
   cartList: CartType;
-  products: ProductType[];
+  products: ProductWithId[];
   setCartList: React.Dispatch<React.SetStateAction<CartType>>;
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;

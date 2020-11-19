@@ -1,46 +1,57 @@
 import React, { useRef, useState } from "react";
 import "./AdminProduct.css";
 import "./Edit.css";
-import { ProductType } from "../../../data/shared";
+import { ProductWithId } from "../../../data/shared";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { StatusCheckbox } from "../StatusCheckbox/StatusCheckbox";
 import { ImageInput } from "../../ImageInput/ImageInput";
+import { update, deleteItem } from "../../../middleware";
 
-interface Mode {
-  editMode: boolean;
-  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+interface AdminProductProps extends ProductWithId {
+  products: ProductWithId[];
+  setProducts: (prod: ProductWithId[]) => void;
+  idx: number;
 }
 
-function Control({ editMode, setEditMode }: Mode) {
-  return (
-    <div className="product__control">
-      <button className="product__control-btn" onClick={() => setEditMode(!editMode)}>
-        <FontAwesomeIcon icon={faEdit} />
-      </button>
-      <button className="product__control-btn product__control-btn_red">
-        <FontAwesomeIcon icon={faTimesCircle} />
-      </button>
-    </div>
-  );
-}
-
-export function AdminProduct({ id, item_name, price, picture, is_available }: ProductType) {
+export function AdminProduct({
+  id,
+  item_name,
+  price,
+  picture,
+  is_available,
+  products,
+  setProducts,
+  idx,
+}: AdminProductProps) {
   const [editMode, setEditMode] = useState(false);
   const [available, setAvailable] = useState(is_available);
   const [image, setImage] = useState(picture);
   const nameInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const priceInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
 
-  function update(): void {
+  async function updateProduct(): Promise<void> {
     const body = {
+      id,
       item_name: nameInput!.current!.value,
       price: parseInt(priceInput!.current!.value),
       is_available: available,
-      picture: image.slice(0, 20),
+      picture: image,
     };
 
-    console.log(body);
+    const updatedProduct = await update(body);
+
+    if (!updatedProduct) return;
+    setProducts(products.map((item, i) => (i === idx ? updatedProduct : item)));
+    setEditMode(false);
+  }
+
+  async function deleteProduct(): Promise<void> {
+    const result = await deleteItem(id);
+
+    if (result) {
+      setProducts(products.filter(item => item.id !== id));
+    }
   }
 
   function getNameElement() {
@@ -95,12 +106,19 @@ export function AdminProduct({ id, item_name, price, picture, is_available }: Pr
       )}
 
       {editMode && (
-        <button className="product__save" onClick={update}>
+        <button className="product__save" onClick={updateProduct}>
           Save
         </button>
       )}
 
-      <Control editMode={editMode} setEditMode={setEditMode} />
+      <div className="product__control">
+        <button className="product__control-btn" onClick={() => setEditMode(!editMode)}>
+          <FontAwesomeIcon icon={faEdit} />
+        </button>
+        <button className="product__control-btn product__control-btn_red" onClick={deleteProduct}>
+          <FontAwesomeIcon icon={faTimesCircle} />
+        </button>
+      </div>
     </div>
   );
 }

@@ -2,9 +2,9 @@ import React from "react";
 import "./ProductCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { ProductType } from "../../../data/shared";
+import { ProductWithId } from "../../../data/shared";
 
-interface ProductCardProps extends ProductType {
+interface ProductCardProps extends ProductWithId {
   addToCart: (id: number) => void;
 }
 

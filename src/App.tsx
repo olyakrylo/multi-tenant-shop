@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Admin, MainPage, Cart, Header } from "./components";
 import { Route, Switch } from "react-router-dom";
-import { CartType, ProductType } from "./data/shared";
+import { CartType, ProductWithId } from "./data/shared";
 import { loadProducts } from "./middleware";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   const [cartList, setCartList] = useState(cartData);
   const [cartCount, setCartCount] = useState(count);
 
-  let [products, setProducts] = useState([] as ProductType[]);
+  let [products, setProducts] = useState([] as ProductWithId[]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {

@@ -4,13 +4,13 @@ import { Search } from "../MainPage/Search/Search";
 import { AdminProduct } from "./Product/AdminProduct";
 import { AddForm } from "./AddForm/AddForm";
 import { Auth } from "../Auth/Auth";
-import { ProductType } from "../../data/shared";
+import { ProductWithId } from "../../data/shared";
 
 interface AdminProps {
   token: string;
   setToken: (token: string) => void;
-  products: ProductType[];
-  setProducts: (list: ProductType[]) => void;
+  products: ProductWithId[];
+  setProducts: (list: ProductWithId[]) => void;
 }
 
 export function Admin({ token, setToken, products, setProducts }: AdminProps) {
@@ -36,7 +36,7 @@ export function Admin({ token, setToken, products, setProducts }: AdminProps) {
       </div>
 
       <div className={`admin__add ${addOpened && "admin__add_open"}`}>
-        <AddForm setAddOpened={setAddOpened} />
+        <AddForm setAddOpened={setAddOpened} products={products} setProducts={setProducts} />
       </div>
 
       <ul className={`admin__list ${addOpened ? "admin__list_blocked" : ""}`}>
@@ -53,6 +53,9 @@ export function Admin({ token, setToken, products, setProducts }: AdminProps) {
                 is_available={item.is_available}
                 item_name={item.item_name}
                 picture={item.picture}
+                products={products}
+                setProducts={setProducts}
+                idx={i}
               />
             </li>
           ))}
