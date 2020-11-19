@@ -3,15 +3,26 @@ import "./ImageInput.css";
 
 interface ImageInputProps {
   initialSrc?: string;
+  setImage: (im: string) => void;
 }
 
-export function ImageInput({ initialSrc }: ImageInputProps) {
-  const imageElement = useRef(null);
+export function ImageInput({ initialSrc, setImage }: ImageInputProps) {
+  const imageElement: React.MutableRefObject<null | HTMLImageElement> = useRef(null);
 
   function updateImage(event: any): void {
     try {
-      // @ts-ignore
-      imageElement!.current.src = window.URL.createObjectURL(event.nativeEvent.target.files[0]);
+      const reader = new FileReader();
+
+      reader.readAsDataURL(event.nativeEvent.target.files[0]);
+      reader.onloadend = () => {
+        const strImage = reader.result as string;
+        if (strImage.length > 500000) {
+          alert("too big image");
+          return;
+        }
+        setImage(strImage);
+        imageElement!.current!.src = strImage;
+      };
     } catch {
       return;
     }

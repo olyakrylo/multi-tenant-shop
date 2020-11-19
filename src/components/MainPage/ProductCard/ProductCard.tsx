@@ -5,7 +5,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { ProductType } from "../../../data/shared";
 
 interface ProductCardProps extends ProductType {
-  addToCart: (id: string) => void;
+  addToCart: (id: number) => void;
 }
 
 export function ProductCard({
@@ -19,7 +19,7 @@ export function ProductCard({
   return (
     <div className="card">
       <div className="card__content">
-        <img src={`./img/${picture}`} className="card__image" alt="" />
+        <img src={picture} className="card__image" alt="" />
         <div className="card__name">{item_name}</div>
         <div className="card__price">{price} ₽</div>
 

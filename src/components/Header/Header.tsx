@@ -35,7 +35,6 @@ export function Header({ authToken, setToken, cartCount }: HeaderProps) {
       <button className="header__cart" onClick={() => history.push("/cart")}>
         {cartCount || ""}&nbsp;&nbsp;
         <FontAwesomeIcon icon={faShoppingCart} />
-        &nbsp;&nbsp;Cart
       </button>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./AdminProduct.css";
 import "./Edit.css";
 import { ProductType } from "../../../data/shared";
@@ -28,6 +28,20 @@ function Control({ editMode, setEditMode }: Mode) {
 export function AdminProduct({ id, item_name, price, picture, is_available }: ProductType) {
   const [editMode, setEditMode] = useState(false);
   const [available, setAvailable] = useState(is_available);
+  const [image, setImage] = useState(picture);
+  const nameInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
+  const priceInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
+
+  function update(): void {
+    const body = {
+      item_name: nameInput!.current!.value,
+      price: parseInt(priceInput!.current!.value),
+      is_available: available,
+      picture: image.slice(0, 20),
+    };
+
+    console.log(body);
+  }
 
   function getNameElement() {
     return editMode ? (
@@ -35,6 +49,7 @@ export function AdminProduct({ id, item_name, price, picture, is_available }: Pr
         className="product__input product__name_edit"
         placeholder="Name"
         defaultValue={item_name}
+        ref={nameInput}
       />
     ) : (
       <div className="product__name">{item_name}</div>
@@ -43,7 +58,7 @@ export function AdminProduct({ id, item_name, price, picture, is_available }: Pr
 
   function getPriceElement() {
     return editMode ? (
-      <input className="product__input product__price_edit" defaultValue={price} />
+      <input ref={priceInput} className="product__input product__price_edit" defaultValue={price} />
     ) : (
       <div className="product__price">
         {price} ₽&nbsp;&nbsp;&nbsp;
@@ -55,9 +70,9 @@ export function AdminProduct({ id, item_name, price, picture, is_available }: Pr
 
   function getImageElement() {
     return editMode ? (
-      <ImageInput initialSrc={`./img/${picture}`} />
+      <ImageInput initialSrc={picture} setImage={setImage} />
     ) : (
-      <img className="product__image-item" alt="" src={`./img/${picture}`} />
+      <img className="product__image-item" alt="" src={picture} />
     );
   }
 
@@ -79,7 +94,11 @@ export function AdminProduct({ id, item_name, price, picture, is_available }: Pr
         </div>
       )}
 
-      {editMode && <button className="product__save">Save</button>}
+      {editMode && (
+        <button className="product__save" onClick={update}>
+          Save
+        </button>
+      )}
 
       <Control editMode={editMode} setEditMode={setEditMode} />
     </div>

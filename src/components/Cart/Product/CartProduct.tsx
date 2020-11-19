@@ -6,7 +6,7 @@ import "./CartProduct.css";
 
 interface CartProductProps extends ProductType {
   amount: number;
-  changeCart: (id: string, add: boolean) => void;
+  changeCart: (id: number, add: boolean) => void;
 }
 
 export function CartProduct({
@@ -19,7 +19,7 @@ export function CartProduct({
 }: CartProductProps) {
   return (
     <div className="cart-product">
-      <img className="cart-product__img" alt="" src={`./img/${picture}`} />
+      <img className="cart-product__img" alt="" src={picture} />
       <div className="cart-product__name">{item_name}</div>
       <div className="cart-product__price">{price} ₽</div>
       <div className="cart-product__control">

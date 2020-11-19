@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import "./Admin.css";
 import { Search } from "../MainPage/Search/Search";
-import { productsList } from "../../data/productsList";
 import { AdminProduct } from "./Product/AdminProduct";
 import { AddForm } from "./AddForm/AddForm";
 import { Auth } from "../Auth/Auth";
+import { ProductType } from "../../data/shared";
 
 interface AdminProps {
   token: string;
   setToken: (token: string) => void;
+  products: ProductType[];
+  setProducts: (list: ProductType[]) => void;
 }
 
-export function Admin({ token, setToken }: AdminProps) {
-  let [products, setProducts] = useState(productsList);
+export function Admin({ token, setToken, products, setProducts }: AdminProps) {
   let [addOpened, setAddOpened] = useState(false);
+  const [search, setSearch] = useState("");
 
   function onSearchInput(value: string): void {
     const croppedValue = value.trim().toLowerCase();
-    const foundProducts = productsList.filter(
-      item => item.item_name.toLowerCase().includes(croppedValue) || item.id.includes(croppedValue),
-    );
-    setProducts(foundProducts);
+    setSearch(croppedValue);
   }
 
   if (!token) {
@@ -41,17 +40,22 @@ export function Admin({ token, setToken }: AdminProps) {
       </div>
 
       <ul className={`admin__list ${addOpened ? "admin__list_blocked" : ""}`}>
-        {products.map((item, i) => (
-          <li className="admin__product" key={i}>
-            <AdminProduct
-              id={item.id}
-              price={item.price}
-              is_available={item.is_available}
-              item_name={item.item_name}
-              picture={item.picture}
-            />
-          </li>
-        ))}
+        {products
+          .filter(
+            item =>
+              item.item_name.toLowerCase().includes(search) || item.id.toString().includes(search),
+          )
+          .map((item, i) => (
+            <li className="admin__product" key={i}>
+              <AdminProduct
+                id={item.id}
+                price={item.price}
+                is_available={item.is_available}
+                item_name={item.item_name}
+                picture={item.picture}
+              />
+            </li>
+          ))}
       </ul>
     </div>
   );

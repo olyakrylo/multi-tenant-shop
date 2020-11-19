@@ -6,28 +6,28 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { CartProduct } from "./Product/CartProduct";
 
 interface CartProps {
-  cart: CartType;
+  cartList: CartType;
   products: ProductType[];
-  setCart: React.Dispatch<React.SetStateAction<CartType>>;
+  setCartList: React.Dispatch<React.SetStateAction<CartType>>;
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function Cart({ cart, products, setCart, cartCount, setCartCount }: CartProps) {
-  function changeCart(id: string, add: boolean): void {
+export function Cart({ cartList, products, setCartList, cartCount, setCartCount }: CartProps) {
+  function changeCart(id: number, add: boolean): void {
     if (add) {
-      cart[id] += 1;
-    } else if (cart[id] === 1) {
-      delete cart[id];
+      cartList[id] += 1;
+    } else if (cartList[id] === 1) {
+      delete cartList[id];
     } else {
-      cart[id] -= 1;
+      cartList[id] -= 1;
     }
-    document.cookie = `cart=${JSON.stringify(cart)}`;
-    setCart(cart);
+    document.cookie = `cart=${JSON.stringify(cartList)}`;
+    setCartList(cartList);
     setCartCount(add ? ++cartCount : --cartCount);
   }
 
-  const cartProducts = products.filter(item => Object.keys(cart).includes(item.id));
+  const cartProducts = products.filter(item => Object.keys(cartList).includes(item.id.toString()));
 
   return (
     <div className="cart">
@@ -43,7 +43,7 @@ export function Cart({ cart, products, setCart, cartCount, setCartCount }: CartP
               id={item.id}
               item_name={item.item_name}
               picture={item.picture}
-              amount={cart[item.id]}
+              amount={cartList[item.id]}
               price={item.price}
               is_available={item.is_available}
               changeCart={changeCart}
@@ -57,7 +57,7 @@ export function Cart({ cart, products, setCart, cartCount, setCartCount }: CartP
         {cartProducts.reduce((prev, curr) => {
           const currProduct = products.find(item => item.id === curr.id);
           if (!currProduct) return prev;
-          return prev + currProduct.price * cart[curr.id];
+          return prev + currProduct.price * cartList[curr.id];
         }, 0)}{" "}
         ₽
       </p>

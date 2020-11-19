@@ -1,38 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Masonry from "react-masonry-css";
 import "./MainPage.css";
 import { Search } from "./Search/Search";
 import { ProductCard } from "./ProductCard/ProductCard";
-import { productsList } from "../../data/productsList";
 import { ProductType, CartType } from "../../data/shared";
-import { loadProducts } from "../../middleware";
 
 interface MainPageProps {
   cart: CartType;
   setCart: React.Dispatch<React.SetStateAction<CartType>>;
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
+  products: ProductType[];
+  setProducts: (list: ProductType[]) => void;
 }
 
-export function MainPage({ cart, setCart, cartCount, setCartCount }: MainPageProps) {
-  let [products, setProducts] = useState([] as ProductType[]);
-  let [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    if (loaded) return;
-    loadProducts().then(data => {
-      setLoaded(true);
-      setProducts(data);
-    });
-  });
-
+export function MainPage({
+  cart,
+  setCart,
+  cartCount,
+  setCartCount,
+  products,
+  setProducts,
+}: MainPageProps) {
   function onSearchInput(value: string): void {
     const croppedValue = value.trim().toLowerCase();
-    setProducts(productsList.filter(item => item.item_name.toLowerCase().includes(croppedValue)));
+    setProducts(products.filter(item => item.item_name.toLowerCase().includes(croppedValue)));
   }
 
-  function addToCart(id: string): void {
-    cart[id] = cart[id] ? cart[id] + 1 : 1;
+  function addToCart(id: number): void {
+    const stringId = id.toString();
+    cart[stringId] = cart[stringId] ? cart[stringId] + 1 : 1;
     document.cookie = `cart=${JSON.stringify(cart)}`;
     setCart(cart);
     setCartCount(++cartCount);

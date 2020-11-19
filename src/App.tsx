@@ -1,16 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Admin, MainPage, Cart, Header } from "./components";
 import { Route, Switch } from "react-router-dom";
-import { CartType } from "./data/shared";
-import { productsList } from "./data/productsList";
+import { CartType, ProductType } from "./data/shared";
+import { loadProducts } from "./middleware";
 
 function App() {
   const [authToken, setToken] = useState(getToken());
 
   const { count, cartData } = getCart();
-  const [cart, setCart] = useState(cartData);
+  const [cartList, setCartList] = useState(cartData);
   const [cartCount, setCartCount] = useState(count);
+
+  let [products, setProducts] = useState([] as ProductType[]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (loaded) return;
+    loadProducts().then(data => {
+      setLoaded(true);
+      setProducts(data);
+    });
+  });
 
   function getToken() {
     const tokenExpr = document.cookie.match(/token=[a-zA-Z0-9]+;?/);
@@ -46,26 +57,35 @@ function App() {
             path="/"
             render={() => (
               <MainPage
-                cart={cart}
-                setCart={setCart}
+                cart={cartList}
+                setCart={setCartList}
                 cartCount={cartCount}
                 setCartCount={setCartCount}
+                products={products}
+                setProducts={setProducts}
               />
             )}
           />
           <Route
             exact
             path="/admin"
-            render={() => <Admin token={authToken} setToken={setToken} />}
+            render={() => (
+              <Admin
+                token={authToken}
+                setToken={setToken}
+                products={products}
+                setProducts={setProducts}
+              />
+            )}
           />
           <Route
             exact
             path="/cart"
             render={() => (
               <Cart
-                cart={cart}
-                products={productsList}
-                setCart={setCart}
+                cartList={cartList}
+                products={products}
+                setCartList={setCartList}
                 cartCount={cartCount}
                 setCartCount={setCartCount}
               />
