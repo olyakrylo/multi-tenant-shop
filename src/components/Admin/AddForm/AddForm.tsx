@@ -9,26 +9,33 @@ interface AddFormProps {
   setAddOpened: (val: boolean) => void;
   products: ProductWithId[];
   setProducts: (product: ProductWithId[]) => void;
+  setError: (message: string) => void;
 }
 
-export function AddForm({ setAddOpened, products, setProducts }: AddFormProps) {
+export function AddForm({ setAddOpened, products, setProducts, setError }: AddFormProps) {
   const [available, setAvailable] = useState(true);
   const [image, setImage] = useState("");
   const nameInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const priceInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
 
   async function addProduct(): Promise<void> {
-    const body = {
-      item_name: nameInput!.current!.value,
-      price: parseInt(priceInput!.current!.value),
-      is_available: available,
-      picture: image,
-    };
+    const item_name = nameInput!.current!.value;
+    const price = parseInt(priceInput!.current!.value);
+    const is_available = available;
+    const picture = image;
 
-    const newProduct = await add(body);
+    if (!item_name || !picture) {
+      setError("All fields must be filled!");
+      return;
+    }
+    if (!price) {
+      setError("Price should be numeric!");
+      return;
+    }
+
+    const newProduct = await add({ item_name, price, is_available, picture });
 
     if (!newProduct) return;
-
     setProducts([...products, newProduct]);
     setAddOpened(false);
   }

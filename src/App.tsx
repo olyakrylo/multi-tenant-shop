@@ -4,6 +4,7 @@ import { Admin, MainPage, Cart, Header } from "./components";
 import { Route, Switch } from "react-router-dom";
 import { CartType, ProductWithId } from "./data/shared";
 import { loadProducts } from "./middleware";
+import { Error } from "./components/Error/Error";
 
 function App() {
   const [authToken, setToken] = useState(getToken());
@@ -11,6 +12,7 @@ function App() {
   const { count, cartData } = getCart();
   const [cartList, setCartList] = useState(cartData);
   const [cartCount, setCartCount] = useState(count);
+  const [error, setError] = useState("");
 
   let [products, setProducts] = useState([] as ProductWithId[]);
   const [loaded, setLoaded] = useState(false);
@@ -50,6 +52,8 @@ function App() {
     <div className="App">
       <Header authToken={authToken} setToken={setToken} cartCount={cartCount} />
 
+      <Error message={error} show={!!error} setError={setError} />
+
       <div className="content">
         <Switch>
           <Route
@@ -75,6 +79,7 @@ function App() {
                 setToken={setToken}
                 products={products}
                 setProducts={setProducts}
+                setError={setError}
               />
             )}
           />

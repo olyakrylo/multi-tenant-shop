@@ -1,3 +1,7 @@
+.App {
+  position: relative;
+}
+
 .content {
   font-family: Roboto, sans-serif;
   margin: 140px auto 60px;

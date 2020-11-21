@@ -4,6 +4,7 @@ import { CartType, ProductWithId } from "../../data/shared";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { CartProduct } from "./Product/CartProduct";
+import { config } from "../../config";
 
 interface CartProps {
   cartList: CartType;
@@ -22,7 +23,7 @@ export function Cart({ cartList, products, setCartList, cartCount, setCartCount 
     } else {
       cartList[id] -= 1;
     }
-    document.cookie = `cart=${JSON.stringify(cartList)}`;
+    document.cookie = `cart=${JSON.stringify(cartList)}; max-age=${config.login_time * 60 * 60}`;
     setCartList(cartList);
     setCartCount(add ? ++cartCount : --cartCount);
   }

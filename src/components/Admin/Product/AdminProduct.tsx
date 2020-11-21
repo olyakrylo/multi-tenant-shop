@@ -12,6 +12,7 @@ interface AdminProductProps extends ProductWithId {
   products: ProductWithId[];
   setProducts: (prod: ProductWithId[]) => void;
   idx: number;
+  setError: (message: string) => void;
 }
 
 export function AdminProduct({
@@ -23,6 +24,7 @@ export function AdminProduct({
   products,
   setProducts,
   idx,
+  setError
 }: AdminProductProps) {
   const [editMode, setEditMode] = useState(false);
   const [available, setAvailable] = useState(is_available);
@@ -31,15 +33,21 @@ export function AdminProduct({
   const priceInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
 
   async function updateProduct(): Promise<void> {
-    const body = {
-      id,
-      item_name: nameInput!.current!.value,
-      price: parseInt(priceInput!.current!.value),
-      is_available: available,
-      picture: image,
-    };
+    const item_name = nameInput!.current!.value;
+    const price = parseInt(priceInput!.current!.value);
+    const is_available = available;
+    const picture = image;
 
-    const updatedProduct = await update(body);
+    if (!item_name || !picture) {
+      setError("All fields must be filled!");
+      return;
+    }
+    if (!price) {
+      setError("Price should be numeric!");
+      return;
+    }
+
+    const updatedProduct = await update({ id, item_name, price, is_available, picture });
 
     if (!updatedProduct) return;
     setProducts(products.map((item, i) => (i === idx ? updatedProduct : item)));

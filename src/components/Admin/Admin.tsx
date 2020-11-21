@@ -3,7 +3,7 @@ import "./Admin.css";
 import { Search } from "../MainPage/Search/Search";
 import { AdminProduct } from "./Product/AdminProduct";
 import { AddForm } from "./AddForm/AddForm";
-import { Auth } from "../Auth/Auth";
+import { Auth } from "./Auth/Auth";
 import { ProductWithId } from "../../data/shared";
 
 interface AdminProps {
@@ -11,9 +11,10 @@ interface AdminProps {
   setToken: (token: string) => void;
   products: ProductWithId[];
   setProducts: (list: ProductWithId[]) => void;
+  setError: (message: string) => void;
 }
 
-export function Admin({ token, setToken, products, setProducts }: AdminProps) {
+export function Admin({ token, setToken, products, setProducts, setError }: AdminProps) {
   let [addOpened, setAddOpened] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -23,7 +24,7 @@ export function Admin({ token, setToken, products, setProducts }: AdminProps) {
   }
 
   if (!token) {
-    return <Auth setToken={setToken} />;
+    return <Auth setToken={setToken} setError={setError} />;
   }
 
   return (
@@ -36,7 +37,12 @@ export function Admin({ token, setToken, products, setProducts }: AdminProps) {
       </div>
 
       <div className={`admin__add ${addOpened && "admin__add_open"}`}>
-        <AddForm setAddOpened={setAddOpened} products={products} setProducts={setProducts} />
+        <AddForm
+          setAddOpened={setAddOpened}
+          products={products}
+          setProducts={setProducts}
+          setError={setError}
+        />
       </div>
 
       <ul className={`admin__list ${addOpened ? "admin__list_blocked" : ""}`}>
@@ -56,6 +62,7 @@ export function Admin({ token, setToken, products, setProducts }: AdminProps) {
                 products={products}
                 setProducts={setProducts}
                 idx={i}
+                setError={setError}
               />
             </li>
           ))}

@@ -1,14 +1,15 @@
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import "./Auth.css";
-import { login } from "../../middleware";
-import { ProductWithId } from "../../data/shared";
+import { login } from "../../../middleware";
+import {config } from "../../../config";
 
 interface AuthProps {
   setToken: (token: string) => void;
+  setError: (message: string) => void;
 }
 
-export function Auth({ setToken }: AuthProps) {
+export function Auth({ setToken, setError }: AuthProps) {
   const loginInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const passwordInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const history = useHistory();
@@ -21,10 +22,10 @@ export function Auth({ setToken }: AuthProps) {
     const token = await login(username, password);
 
     if (!token) {
-      prompt("Ты уебан?");
+      setError("Wrong login or password");
       return;
     }
-    document.cookie = `token=${token}`;
+    document.cookie = `token=${token}; max-age=${config.login_time * 60}`;
     setToken(token);
   }
 

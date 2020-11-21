@@ -2,16 +2,17 @@ import { config } from "./config";
 import { Product, ProductWithId } from "./data/shared";
 import { productsList } from "./data/productsList";
 
+const token = `Token ${config.token}`;
+
+type Method = "GET" | "POST" | "DELETE";
+
+type TokenResponse = { token: string };
+
+type DeleteResponse = { result: boolean };
+
 export async function loadProducts(): Promise<ProductWithId[]> {
   try {
-    const response = await fetch(`${config.url}products/`, {
-      method: "GET",
-      headers: {
-        Authorization: config.token,
-      },
-    });
-    const data: ProductWithId[] = await response.json();
-    return data;
+    return await request<ProductWithId[]>("GET", "products");
   } catch (error) {
     return productsList;
   }
@@ -19,19 +20,9 @@ export async function loadProducts(): Promise<ProductWithId[]> {
 
 export async function login(username: string, password: string): Promise<string> {
   try {
-    const response = await fetch(`${config.url}login/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      })
-    });
-
-    const { token }: { token: string } = await response.json();
-    return token;
+    const body = JSON.stringify({ username, password });
+    const { token } = await request<TokenResponse>("POST", "login", body);
+    return token === config.token ? token : "";
   } catch (error) {
     return "";
   }
@@ -39,17 +30,8 @@ export async function login(username: string, password: string): Promise<string>
 
 export async function add(product: Product): Promise<ProductWithId | null> {
   try {
-    const response = await fetch(`${config.url}products/create/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: config.token,
-      },
-      body: JSON.stringify(product),
-    });
-
-    const data: ProductWithId = await response.json();
-    return data;
+    const body = JSON.stringify(product);
+    return await request<ProductWithId>("POST", "products/create", body);
   } catch (error) {
     return null;
   }
@@ -57,17 +39,8 @@ export async function add(product: Product): Promise<ProductWithId | null> {
 
 export async function update(product: ProductWithId): Promise<ProductWithId | null> {
   try {
-    const response = await fetch(`${config.url}products/${product.id}/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: config.token,
-      },
-      body: JSON.stringify(product),
-    });
-
-    const data: ProductWithId = await response.json();
-    return data;
+    const body = JSON.stringify(product);
+    return await request<ProductWithId>("POST",`products/${product.id}`, body);
   } catch (error) {
     return null;
   }
@@ -75,16 +48,22 @@ export async function update(product: ProductWithId): Promise<ProductWithId | nu
 
 export async function deleteItem(id: number): Promise<boolean> {
   try {
-    const response = await fetch(`${config.url}products/delete/${id}/`, {
-      method: "DELETE",
-      headers: {
-        Authorization: config.token,
-      },
-    });
-
-    const { result }: { result: boolean } = await response.json();
+    const { result } = await request<DeleteResponse>("DELETE", `products/delete/${id}`);
     return result;
   } catch (error) {
     return false;
   }
+}
+
+async function request<T>(method: Method, path: string, body?: string): Promise<T> {
+  const response = await fetch(`${config.url}${path}/`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body,
+  });
+
+  return await response.json() as Promise<T>;
 }
