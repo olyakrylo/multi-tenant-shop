@@ -4,12 +4,7 @@
   grid-template-areas: "name image" "price image" "av image" "buttons image";
   grid-gap: 30px;
   padding: 1px;
-}
-
-@media (max-width: 500px) {
-  .add__form {
-    grid-template-areas: "image" "name" "price" "av" "buttons";
-  }
+  box-sizing: border-box;
 }
 
 .form__name {
@@ -26,12 +21,6 @@
   grid-area: image;
   width: 260px;
   height: 260px;
-}
-
-@media (max-width: 500px) {
-  .form__image {
-    justify-self: flex-start;
-  }
 }
 
 .form-field {
@@ -74,25 +63,6 @@
   position: relative;
 }
 
-.form__option {
-  color: var(--main);
-  text-align: center;
-  line-height: 40px;
-  font-size: 17px;
-  height: 40px;
-  background-color: white;
-}
-
-.form__option_selected_green {
-  background-color: var(--green);
-  color: white;
-}
-
-.form__option_selected_red {
-  background-color: var(--red);
-  color: white;
-}
-
 .form__buttons {
   grid-area: buttons;
 }
@@ -131,6 +101,13 @@
 }
 
 @media (max-width: 500px) {
+  .add__form {
+    grid-template-areas: "image" "name" "price" "av" "buttons";
+  }
+  .form__image {
+    width: 89vw;
+    height: 89vw;
+  }
   .form__name,
   .form__price,
   .form__available {

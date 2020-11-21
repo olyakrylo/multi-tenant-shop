@@ -32,3 +32,15 @@
 .cart__sum_light {
   color: var(--main);
 }
+
+@media (max-width: 500px) {
+  .cart__title {
+    margin-left: 20px;
+  }
+  .cart__list {
+    border: none;
+  }
+  .cart__sum {
+    margin-right: 20px;
+  }
+}

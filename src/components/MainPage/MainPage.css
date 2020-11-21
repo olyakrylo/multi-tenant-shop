@@ -36,3 +36,10 @@
   padding-left: 30px;
   background-clip: padding-box;
 }
+
+@media (max-width: 500px) {
+  .main {
+    width: 90vw;
+    margin: auto;
+  }
+}

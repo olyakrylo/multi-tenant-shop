@@ -57,3 +57,24 @@
 .product__save:hover {
   background-color: var(--main);
 }
+
+@media (max-width: 500px) {
+  .product_edit {
+    grid-template-areas:
+            "image image"
+            "id id"
+            "name name"
+            "price price"
+            "av av"
+            "save control";
+    height: auto;
+    padding: 0 5vw 20px;
+    box-sizing: border-box;
+    width: 100vw;
+  }
+
+  .product__image_edit {
+    width: 90vw;
+    height: 90vw;
+  }
+}

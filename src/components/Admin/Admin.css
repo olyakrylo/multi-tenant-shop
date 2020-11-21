@@ -42,16 +42,6 @@
   height: 270px;
 }
 
-@media (max-width: 500px) {
-  .admin__add_open {
-    height: 555px;
-  }
-
-  .admin__header-add {
-    font-size: 15px;
-  }
-}
-
 .admin__list {
   grid-area: list;
   list-style: none;
@@ -81,4 +71,23 @@
 
 .admin__product:last-child {
   border-bottom: none;
+}
+
+@media (max-width: 500px) {
+  .admin__header, .admin__add_open {
+    width: 90vw;
+    margin: auto;
+  }
+
+  .admin__add_open {
+    height: calc(300px + 90vw);
+  }
+
+  .admin__header-add {
+    font-size: 15px;
+  }
+
+  .admin__list {
+    border: none;
+  }
 }
