@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./Cart.css";
 import { CartType, ProductWithId } from "../../data/shared";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,11 +31,13 @@ export function Cart({ cartList, products, setCartList, cartCount, setCartCount 
 
   const cartProducts = products.filter(item => Object.keys(cartList).includes(item.id.toString()));
 
+  const { t } = useTranslation();
+
   return (
     <div className="cart">
       <p className="cart__title">
         <FontAwesomeIcon icon={faShoppingCart} />
-        &nbsp;&nbsp;Shopping Cart
+        &nbsp;&nbsp;{t("cart")}
       </p>
 
       <ul className="cart__list">
@@ -54,7 +57,7 @@ export function Cart({ cartList, products, setCartList, cartCount, setCartCount 
       </ul>
 
       <p className="cart__sum">
-        <span className="cart__sum_light">Summary: </span>
+        <span className="cart__sum_light">{t("sum")}: </span>
         {cartProducts.reduce((prev, curr) => {
           const currProduct = products.find(item => item.id === curr.id);
           if (!currProduct) return prev;

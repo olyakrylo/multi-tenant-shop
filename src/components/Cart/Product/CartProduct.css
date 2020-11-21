@@ -19,6 +19,9 @@
   align-self: end;
   font-size: 20px;
   color: var(--dark);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .cart-product__price {

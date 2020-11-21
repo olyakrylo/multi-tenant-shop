@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./AdminProduct.css";
 import "./Edit.css";
+import { useTranslation } from "react-i18next";
 import { ProductWithId } from "../../../data/shared";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faEdit } from "@fortawesome/free-regular-svg-icons";
@@ -31,6 +32,7 @@ export function AdminProduct({
   const [image, setImage] = useState(picture);
   const nameInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const priceInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
+  const { t } = useTranslation();
 
   async function updateProduct(): Promise<void> {
     const item_name = nameInput!.current!.value;
@@ -39,11 +41,11 @@ export function AdminProduct({
     const picture = image;
 
     if (!item_name || !picture) {
-      setError("All fields must be filled!");
+      setError(t("error.fields"));
       return;
     }
     if (!price) {
-      setError("Price should be numeric!");
+      setError(t("error.price"));
       return;
     }
 
@@ -66,7 +68,7 @@ export function AdminProduct({
     return editMode ? (
       <input
         className="product__input product__name_edit"
-        placeholder="Name"
+        placeholder={t("product.name")}
         defaultValue={item_name}
         ref={nameInput}
       />
@@ -77,12 +79,19 @@ export function AdminProduct({
 
   function getPriceElement() {
     return editMode ? (
-      <input ref={priceInput} className="product__input product__price_edit" defaultValue={price} />
+      <input
+        ref={priceInput}
+        className="product__input product__price_edit"
+        defaultValue={price}
+        placeholder={t("product.price")}
+      />
     ) : (
       <div className="product__price">
         {price} ₽&nbsp;&nbsp;&nbsp;
-        {is_available && <span className="product__status_available">Available</span>}
-        {!is_available && <span className="product__status_not-available">Not available</span>}
+        {is_available &&
+          <span className="product__status_available">{t("product.available")}</span>}
+        {!is_available &&
+          <span className="product__status_not-available">{t("product.not_available")}</span>}
       </div>
     );
   }
@@ -115,7 +124,7 @@ export function AdminProduct({
 
       {editMode && (
         <button className="product__save" onClick={updateProduct}>
-          Save
+          {t("product.save")}
         </button>
       )}
 

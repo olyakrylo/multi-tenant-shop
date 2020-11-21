@@ -1,6 +1,5 @@
 .search {
   grid-area: search;
-  /*width: 480px;*/
   width: 100%;
 }
 
@@ -12,6 +11,7 @@
 
 .search__title {
   color: var(--main);
+  text-transform: lowercase;
 }
 
 .search__field {

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Masonry from "react-masonry-css";
+import { useTranslation } from "react-i18next";
 import "./MainPage.css";
-import { Search } from "./Search/Search";
+import { Search } from "../Search/Search";
 import { ProductCard } from "./ProductCard/ProductCard";
 import { ProductWithId, CartType } from "../../data/shared";
 
@@ -20,11 +21,13 @@ export function MainPage({
   cartCount,
   setCartCount,
   products,
-  setProducts,
 }: MainPageProps) {
+  const { t } = useTranslation();
+  const [search, setSearch] = useState("");
+
   function onSearchInput(value: string): void {
     const croppedValue = value.trim().toLowerCase();
-    setProducts(products.filter(item => item.item_name.toLowerCase().includes(croppedValue)));
+    setSearch(croppedValue);
   }
 
   function addToCart(id: number): void {
@@ -36,6 +39,7 @@ export function MainPage({
   }
 
   const productsItems = products
+    .filter((item) => item.item_name.toLowerCase().includes(search))
     .sort((a, b) => a.price - b.price)
     .map(({ item_name, price, picture, is_available, id }: ProductWithId, i) => {
       return (
@@ -62,7 +66,7 @@ export function MainPage({
     <div className="main">
       <Search inputEmitter={onSearchInput} />
 
-      <div className="content__count">Total count: {products.length}</div>
+      <div className="content__count">{t("found")}: {products.length}</div>
 
       <Masonry
         columnClassName="results__col"

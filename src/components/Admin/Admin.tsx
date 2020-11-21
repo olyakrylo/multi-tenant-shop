@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Admin.css";
-import { Search } from "../MainPage/Search/Search";
+import { useTranslation } from "react-i18next";
+import { Search } from "../Search/Search";
 import { AdminProduct } from "./Product/AdminProduct";
 import { AddForm } from "./AddForm/AddForm";
 import { Auth } from "./Auth/Auth";
@@ -17,6 +18,7 @@ interface AdminProps {
 export function Admin({ token, setToken, products, setProducts, setError }: AdminProps) {
   let [addOpened, setAddOpened] = useState(false);
   const [search, setSearch] = useState("");
+  const { t } = useTranslation();
 
   function onSearchInput(value: string): void {
     const croppedValue = value.trim().toLowerCase();
@@ -31,7 +33,7 @@ export function Admin({ token, setToken, products, setProducts, setError }: Admi
     <div className="admin">
       <div className={`admin__header ${addOpened ? "admin__header_blocked" : ""}`}>
         <button className="admin__header-add" onClick={() => setAddOpened(true)}>
-          Add product
+          {t("add_product")}
         </button>
         <Search inputEmitter={onSearchInput} />
       </div>

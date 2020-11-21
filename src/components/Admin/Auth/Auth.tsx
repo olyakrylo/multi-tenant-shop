@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Auth.css";
 import { login } from "../../../middleware";
 import {config } from "../../../config";
@@ -13,6 +14,7 @@ export function Auth({ setToken, setError }: AuthProps) {
   const loginInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const passwordInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const history = useHistory();
+  const { t } = useTranslation();
 
   async function onAuth(): Promise<void> {
     const username = loginInput!.current!.value;
@@ -35,17 +37,23 @@ export function Auth({ setToken, setError }: AuthProps) {
         ref={loginInput}
         id="login"
         className="auth__input"
-        placeholder="login"
+        placeholder={t("auth.login")}
         autoFocus={true}
       />
-      <input ref={passwordInput} id="password" type="password" className="auth__input" placeholder="password" />
+      <input
+        ref={passwordInput}
+        id="password"
+        type="password"
+        className="auth__input"
+        placeholder={t("auth.password")}
+      />
 
       <div className="auth__buttons">
         <button className="auth__button auth__button_solid" onClick={onAuth}>
-          Auth
+          {t("auth.log_in")}
         </button>
         <button className="auth__button auth__button_transparent" onClick={() => history.push("/")}>
-          Cancel
+          {t("cancel")}
         </button>
       </div>
     </div>

@@ -1,0 +1,29 @@
+{
+  "language": "English",
+  "cart": "Shopping cart",
+  "sum": "Summary",
+  "add_product": "Add product",
+  "add": "Add",
+  "cancel": "Cancel",
+  "search": "Search",
+  "found": "Found",
+  "auth": {
+    "log_in": "Log in",
+    "login": "Login",
+    "password": "Password",
+    "admin": "Admin",
+    "log_out": "Log out"
+  },
+  "error": {
+    "fields": "All fields must be filled!",
+    "price": "Price should be numeric!",
+    "login": "Wrong login or password"
+  },
+  "product": {
+    "save": "Save",
+    "name": "Name",
+    "price": "Price",
+    "available": "Available",
+    "not_available": "Not available"
+  }
+}
