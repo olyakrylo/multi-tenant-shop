@@ -25,5 +25,6 @@
     "price": "Price",
     "available": "Available",
     "not_available": "Not available"
-  }
+  },
+  "loading": "Loading..."
 }

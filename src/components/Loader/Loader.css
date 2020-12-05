@@ -1,0 +1,43 @@
+.loader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /*background-color: rgba(0, 0, 0, 0.5);*/
+  background-color: transparent;
+}
+
+.loader__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+}
+
+.loader__title {
+  font-size: 17px;
+  margin-top: 20px;
+  color: var(--main);
+}
+
+@keyframes rotation {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loader__bar {
+  width: 100px;
+  height: 100px;
+
+  animation-name: rotation;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.loader__segment {
+  stroke: var(--main);
+}

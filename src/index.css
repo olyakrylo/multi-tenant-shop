@@ -1,7 +1,10 @@
 :root {
-  --light: #c4c4c4;
+  /* --light: #c4c4c4;
   --main: #989898;
-  --dark: #5b5b5b;
+  --dark: #5b5b5b; */
+  --dark: rgb(58, 0, 0);
+  --main: rgb(146, 0, 0);
+  --light: rgb(255, 173, 173);
   --green: #4a8766;
   --red: #952727;
 }
@@ -34,5 +37,5 @@ code {
 }
 @font-face {
   font-family: "Outsiders";
-  src: url("./assets//fonts//19993.ttf") format("truetype");
+  src: url("./assets/fonts/19993.ttf") format("truetype");
 }
