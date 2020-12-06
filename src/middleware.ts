@@ -1,6 +1,5 @@
 import { config } from "./config";
 import { Product, ProductWithId } from "./data/shared";
-import { productsList } from "./data/productsList";
 
 const token = `Token ${config.token}`;
 
@@ -12,16 +11,16 @@ type DeleteResponse = { result: boolean };
 
 export async function loadProducts(): Promise<ProductWithId[]> {
   try {
-    return await request<ProductWithId[]>("GET", "products");
+    return await request<ProductWithId[]>("GET", "products", []);
   } catch (error) {
-    return productsList;
+    return [];
   }
 }
 
 export async function login(username: string, password: string): Promise<string> {
   try {
     const body = JSON.stringify({ username, password });
-    const { token } = await request<TokenResponse>("POST", "login", body);
+    const { token } = await request<TokenResponse>("POST", "login", { token: "" }, body);
     return token === config.token ? token : "";
   } catch (error) {
     return "";
@@ -31,7 +30,7 @@ export async function login(username: string, password: string): Promise<string>
 export async function add(product: Product): Promise<ProductWithId | null> {
   try {
     const body = JSON.stringify(product);
-    return await request<ProductWithId>("POST", "products/create", body);
+    return await request<ProductWithId | null>("POST", "products/create", null, body);
   } catch (error) {
     return null;
   }
@@ -40,7 +39,7 @@ export async function add(product: Product): Promise<ProductWithId | null> {
 export async function update(product: ProductWithId): Promise<ProductWithId | null> {
   try {
     const body = JSON.stringify(product);
-    return await request<ProductWithId>("POST",`products/${product.id}`, body);
+    return await request<ProductWithId | null>("POST",`products/update/${product.id}`, null, body);
   } catch (error) {
     return null;
   }
@@ -48,14 +47,14 @@ export async function update(product: ProductWithId): Promise<ProductWithId | nu
 
 export async function deleteItem(id: number): Promise<boolean> {
   try {
-    const { result } = await request<DeleteResponse>("DELETE", `products/delete/${id}`);
+    const { result } = await request<DeleteResponse>("DELETE", `products/delete/${id}`, { result: false });
     return result;
   } catch (error) {
     return false;
   }
 }
 
-async function request<T>(method: Method, path: string, body?: string): Promise<T> {
+async function request<T>(method: Method, path: string, defaultReturn: T, body?: string): Promise<T> {
   const response = await fetch(`${config.url}${path}/`, {
     method,
     headers: {
@@ -65,5 +64,8 @@ async function request<T>(method: Method, path: string, body?: string): Promise<
     body,
   });
 
+  if (!response.ok) {
+    return Promise.resolve(defaultReturn);
+  }
   return await response.json() as Promise<T>;
 }
