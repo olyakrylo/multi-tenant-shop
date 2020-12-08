@@ -1,12 +1,9 @@
 :root {
-  /* --light: #c4c4c4;
-  --main: #989898;
-  --dark: #5b5b5b; */
   --dark: rgb(58, 0, 0);
-  --main: rgb(146, 0, 0);
+  --main: rgb(120, 10, 0);
   --light: rgb(255, 173, 173);
   --green: #4a8766;
-  --red: #952727;
+  --red: rgb(200, 0, 0);
 }
 body {
   margin: 0;

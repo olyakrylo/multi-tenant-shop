@@ -8,12 +8,14 @@ import { faTimesCircle, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { StatusCheckbox } from "../StatusCheckbox/StatusCheckbox";
 import { ImageInput } from "../../ImageInput/ImageInput";
 import { update, deleteItem } from "../../../middleware";
+import { Loader } from "../..";
 
 interface AdminProductProps extends ProductWithId {
   products: ProductWithId[];
   setProducts: (prod: ProductWithId[]) => void;
   idx: number;
   setError: (message: string) => void;
+  updateCart: () => void;
 }
 
 export function AdminProduct({
@@ -25,11 +27,13 @@ export function AdminProduct({
   products,
   setProducts,
   idx,
-  setError
+  setError,
+  updateCart
 }: AdminProductProps) {
   const [editMode, setEditMode] = useState(false);
   const [available, setAvailable] = useState(is_available);
   const [image, setImage] = useState(picture);
+  const [loading, setLoading] = useState(false);
   const nameInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const priceInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const { t } = useTranslation();
@@ -49,18 +53,29 @@ export function AdminProduct({
       return;
     }
 
+    setLoading(true);
     const updatedProduct = await update({ id, item_name, price, is_available, picture });
+    setLoading(false);
 
-    if (!updatedProduct) return;
+    if (!updatedProduct) {
+      setError(t("error.base"));
+      return;
+    }
     setProducts(products.map((item, i) => (i === idx ? updatedProduct : item)));
+    updateCart();
     setEditMode(false);
   }
 
   async function deleteProduct(): Promise<void> {
+    setLoading(true);
     const result = await deleteItem(id);
+    setLoading(false);
 
     if (result) {
       setProducts(products.filter(item => item.id !== id));
+      updateCart();
+    } else {
+      setError(t("error.base"));
     }
   }
 
@@ -106,6 +121,8 @@ export function AdminProduct({
 
   return (
     <div className={`product ${editMode && "product_edit"}`}>
+      {loading && <Loader />}
+
       <div className={`product__image ${editMode && "product__image_edit"}`}>
         {getImageElement()}
       </div>

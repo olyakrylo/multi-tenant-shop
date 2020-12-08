@@ -15,7 +15,6 @@ export function Loader() {
             fill='transparent'
             strokeDasharray="80 20" />
         </svg>
-        <div className="loader__title">Connecting...</div>
       </div>
     </div>
   )

@@ -5,17 +5,20 @@ import { StatusCheckbox } from "../StatusCheckbox/StatusCheckbox";
 import { ImageInput } from "../../ImageInput/ImageInput";
 import { add } from "../../../middleware";
 import { ProductWithId } from "../../../data/shared";
+import { Loader } from "../..";
 
 interface AddFormProps {
   setAddOpened: (val: boolean) => void;
   products: ProductWithId[];
   setProducts: (product: ProductWithId[]) => void;
   setError: (message: string) => void;
+  updateCart: () => void;
 }
 
-export function AddForm({ setAddOpened, products, setProducts, setError }: AddFormProps) {
+export function AddForm({ setAddOpened, products, setProducts, setError, updateCart }: AddFormProps) {
   const [available, setAvailable] = useState(true);
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
   const nameInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const priceInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const { t } = useTranslation();
@@ -35,15 +38,23 @@ export function AddForm({ setAddOpened, products, setProducts, setError }: AddFo
       return;
     }
 
+    setLoading(true);
     const newProduct = await add({ item_name, price, is_available, picture });
+    setLoading(false);
 
-    if (!newProduct) return;
+    if (!newProduct) {
+      setError(t("error.base"));
+      return;
+    }
     setProducts([...products, newProduct]);
+    updateCart();
     setAddOpened(false);
   }
 
   return (
     <div className="add__form">
+      {loading && <Loader />}
+
       <div className="form-field form__name">
         <span className="form-field__title">{t("product.name")}</span>
         <input ref={nameInput} className="form-field__input" />

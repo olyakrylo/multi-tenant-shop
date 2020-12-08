@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./Auth.css";
 import { login } from "../../../middleware";
 import {config } from "../../../config";
+import { Loader } from "../..";
 
 interface AuthProps {
   setToken: (token: string) => void;
@@ -13,16 +14,19 @@ interface AuthProps {
 export function Auth({ setToken, setError }: AuthProps) {
   const loginInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const passwordInput: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const { t } = useTranslation();
 
   async function onAuth(): Promise<void> {
+    setLoading(true);
     const username = loginInput!.current!.value;
     const password = passwordInput!.current!.value;
     if (!login) return;
 
     const token = await login(username, password);
 
+    setLoading(false);
     if (!token) {
       setError("Wrong login or password");
       return;
@@ -33,6 +37,7 @@ export function Auth({ setToken, setError }: AuthProps) {
 
   return (
     <div className="auth">
+      {loading  && <Loader />}
       <input
         ref={loginInput}
         id="login"

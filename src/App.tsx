@@ -9,21 +9,27 @@ import { Error } from "./components/Error/Error";
 function App() {
   const [authToken, setToken] = useState(getToken());
 
-  const { count, cartData } = getCart();
-  const [cartList, setCartList] = useState(cartData);
-  const [cartCount, setCartCount] = useState(count);
-  const [error, setError] = useState("");
-
-  let [products, setProducts] = useState([] as ProductWithId[]);
+  const [products, setProducts] = useState([] as ProductWithId[]);
   const [loaded, setLoaded] = useState(false);
+
+  const [cartList, setCartList] = useState({});
+  const [cartCount, setCartCount] = useState(0);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (loaded) return;
-    loadProducts().then(data => {
-      setLoaded(true);
+    loadProducts().then((data) => {
       setProducts(data);
+      updateCart();
+      setLoaded(true);
     });
   });
+
+  function updateCart() {
+    const { count, cartData } = getCart();
+    setCartList(cartData);
+    setCartCount(count);
+  }
 
   function getToken() {
     const tokenExpr = document.cookie.match(/token=[a-zA-Z0-9]+;?/);
@@ -41,7 +47,18 @@ function App() {
         count: 0,
         cartData: {},
       };
-    const parsedData = JSON.parse(data[0].slice(5)) as CartType;
+
+    let parsedData = JSON.parse(data[0].slice(5)) as CartType;
+    parsedData = Object.entries(parsedData)
+      .filter(([id, _]) => {
+        const item = products?.find((item) => item.id.toString() === id);
+        return item && item.is_available;
+      })
+      .reduce((prev, [id, count]) => ({
+        ...prev,
+        [id]: count,
+      }), {} as CartType)
+
     return {
       count: Object.values(parsedData).reduce((prev, curr) => prev + curr, 0),
       cartData: parsedData,
@@ -82,6 +99,7 @@ function App() {
                 products={products}
                 setProducts={setProducts}
                 setError={setError}
+                updateCart={updateCart}
               />
             )}
           />

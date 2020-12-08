@@ -57,8 +57,9 @@
   font-size: 15px;
   padding: 7px 15px;
   cursor: pointer;
-  /*background: var(--light);*/
-  background-color: transparent;
+  background: var(--light);
+  opacity: 0.5;
+  /*background-color: transparent;*/
 }
 
 .header__btn_hidden {

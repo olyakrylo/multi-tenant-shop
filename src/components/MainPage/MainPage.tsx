@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Masonry from "react-masonry-css";
 import { useTranslation } from "react-i18next";
 import "./MainPage.css";
@@ -24,6 +24,23 @@ export function MainPage({
 }: MainPageProps) {
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("price");
+
+  const comparators: { [key: string]: (a: ProductWithId, b: ProductWithId) => number } = {
+    price: (a: ProductWithId, b: ProductWithId) => a.price - b.price,
+    recency: (a: ProductWithId, b: ProductWithId) => b.id - a.id,
+    name: (a: ProductWithId, b: ProductWithId) => {
+      if (a.item_name > b.item_name) return 1;
+      if (a.item_name < b.item_name) return -1;
+      return 0;
+    }
+  }
+
+  function changeSort(e: ChangeEvent) {
+    //@ts-ignore
+    const field = e.nativeEvent.target.value;
+    setSort(field);
+  }
 
   function onSearchInput(value: string): void {
     const croppedValue = value.trim().toLowerCase();
@@ -40,7 +57,7 @@ export function MainPage({
 
   const productsItems = products
     .filter((item) => item.item_name.toLowerCase().includes(search))
-    .sort((a, b) => a.price - b.price)
+    .sort(comparators[sort])
     .map(({ item_name, price, picture, is_available, id }: ProductWithId, i) => {
       return (
         <ProductCard
@@ -66,7 +83,14 @@ export function MainPage({
     <div className="main">
       <Search inputEmitter={onSearchInput} />
 
-      <div className="content__count">{t("found")}: {products.length}</div>
+      <div className="content__sort">
+        <span>{t("sort.by")} &nbsp;</span>
+        <select onChange={changeSort} className="content__sort-select">
+          <option value="price">{t("sort.price")}</option>
+          <option value="recency">{t("sort.recency")}</option>
+          <option value="name">{t("sort.name")}</option>
+        </select>
+      </div>
 
       <Masonry
         columnClassName="results__col"

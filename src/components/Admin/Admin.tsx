@@ -13,9 +13,10 @@ interface AdminProps {
   products: ProductWithId[];
   setProducts: (list: ProductWithId[]) => void;
   setError: (message: string) => void;
+  updateCart: () => void;
 }
 
-export function Admin({ token, setToken, products, setProducts, setError }: AdminProps) {
+export function Admin({ token, setToken, products, setProducts, setError, updateCart }: AdminProps) {
   let [addOpened, setAddOpened] = useState(false);
   const [search, setSearch] = useState("");
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ export function Admin({ token, setToken, products, setProducts, setError }: Admi
           products={products}
           setProducts={setProducts}
           setError={setError}
+          updateCart={updateCart}
         />
       </div>
 
@@ -65,6 +67,7 @@ export function Admin({ token, setToken, products, setProducts, setError }: Admi
                 setProducts={setProducts}
                 idx={i}
                 setError={setError}
+                updateCart={updateCart}
               />
             </li>
           ))}
